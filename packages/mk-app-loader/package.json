@@ -1,0 +1,35 @@
+{
+  "name": "@whatsmk/app-loader",
+  "version": "0.0.2",
+  "description": "app loader",
+  "main": "./lib/index",
+  "scripts": {
+    "compile": "babel -d lib/ src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whatsmk/mk/packages/mk-app-loader.git"
+  },
+  "author": "Liujian Zhang <ziaochina@gmail.com> (http://github.com/ziaochina)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whatsmk/mk/packages/mk-app-loader/issues"
+  },
+  "homepage": "https://github.com/whatsmk/mk/packages/mk-app-loader#readme",
+  "dependencies": {
+    "immutable": "*",
+    "prop-types": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-redux": "*",
+    "redux": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "*",
+    "@babel/core": "*",
+    "@babel/plugin-proposal-class-properties": "*",
+    "@babel/plugin-transform-runtime": "*",
+    "@babel/preset-env": "*",
+    "@babel/preset-react": "*"
+  }
+}
