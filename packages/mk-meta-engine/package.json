@@ -1,0 +1,47 @@
+{
+  "name": "@whatsmk/meta-engine",
+  "version": "0.0.2",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "compile": "babel -d lib/ src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whatsmk/mk/packages/mk-meta-engine.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "flux",
+    "redux",
+    "react-redux",
+    "antd",
+    "immutable",
+    "mk",
+    "mongkey king",
+    "whatsmk",
+    "mk-js"
+  ],
+  "author": "Liujian Zhang <ziaochina@gmail.com> (http://github.com/ziaochina)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whatsmk/mk/packages/mk-meta-engine/issues"
+  },
+  "homepage": "https://github.com/whatsmk/mk/packages/mk-meta-engine#readme",
+  "dependencies": {
+    "@whatsmk/utils": "*",
+    "immutable": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "*",
+    "@babel/core": "*",
+    "@babel/plugin-proposal-class-properties": "*",
+    "@babel/plugin-proposal-decorators": "*",
+    "@babel/plugin-transform-runtime": "*",
+    "@babel/preset-env": "*",
+    "@babel/preset-react": "*"
+  }
+}
