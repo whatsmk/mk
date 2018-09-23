@@ -1,6 +1,6 @@
 {
   "name": "@whatsmk/meta-engine",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
@@ -32,6 +32,7 @@
   "dependencies": {
     "@whatsmk/utils": "*",
     "immutable": "*",
+    "lodash": "*",
     "react": "*",
     "react-dom": "*"
   },
