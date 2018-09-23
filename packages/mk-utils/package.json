@@ -1,0 +1,30 @@
+{
+  "name": "@whatsmk/utils",
+  "version": "0.0.2",
+  "description": "utils",
+  "main": "./lib/index.js",
+  "scripts": {
+    "compile": "babel -d lib/ src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whatsmk/mk/packages/mk-utils.git"
+  },
+  "author": "Liujian Zhang <ziaochina@gmail.com> (http://github.com/ziaochina)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whatsmk/mk/packages/mk-utils/issues"
+  },
+  "homepage": "https://github.com/whatsmk/mk/packages/mk-utils#readme",
+  "dependencies": {
+    "history": "*",
+    "lodash": "*",
+    "whatwg-fetch": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "*",
+    "@babel/core": "*",
+    "@babel/plugin-transform-runtime": "*",
+    "@babel/preset-env": "*"
+  }
+}
