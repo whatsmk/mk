@@ -1,0 +1,66 @@
+{
+  "name": "@whatsmk/cli",
+  "version": "0.0.2",
+  "description": "mk脚手架",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whatsmk/mk/packages/mk-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whatsmk/mk/packages/mk-cli/issues"
+  },
+  "homepage": "https://www.whatsmk.com",
+  "bin": {
+    "mk": "./bin/mk-cli.js"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "@babel/cli": "*",
+    "@babel/core": "*",
+    "@babel/plugin-proposal-class-properties": "*",
+    "@babel/plugin-proposal-decorators": "*",
+    "@babel/plugin-transform-runtime": "*",
+    "@babel/preset-env": "*",
+    "@babel/preset-react": "*",
+    "@babel/runtime": "*",
+    "@whatsmk/sdk": "*",
+    "art-template": "*",
+    "babel-loader": "*",
+    "case-sensitive-paths-webpack-plugin": "*",
+    "chalk": "*",
+    "commander": "*",
+    "cross-env": "*",
+    "css-loader": "*",
+    "dotenv": "*",
+    "dotenv-expand": "*",
+    "envinfo": "*",
+    "file-loader": "*",
+    "fs-extra": "*",
+    "fsevents": "*",
+    "hyperquest": "*",
+    "less": "*",
+    "less-loader": "*",
+    "mini-css-extract-plugin": "*",
+    "optimize-css-assets-webpack-plugin": "*",
+    "react": "*",
+    "react-dev-utils": "*",
+    "react-dom": "*",
+    "resolve": "*",
+    "semver": "*",
+    "tar-pack": "*",
+    "uglifyjs-webpack-plugin": "*",
+    "url-loader": "*",
+    "validate-npm-package-name": "*",
+    "webpack": "*",
+    "webpack-cli": "*",
+    "webpack-dev-server": "*",
+    "which": "*"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
+  "devDependencies": {}
+}
