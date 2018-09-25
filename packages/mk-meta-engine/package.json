@@ -1,6 +1,6 @@
 {
   "name": "@whatsmk/meta-engine",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
@@ -34,7 +34,8 @@
     "immutable": "*",
     "lodash": "*",
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "*",
