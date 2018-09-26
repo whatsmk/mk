@@ -16,21 +16,21 @@ class action {
         Object.assign(this, option.mixins)
     }
 
-    //初始化时调用一次
+    //called once on initialization
     onInit = () => {
         console.log('init')
     }
 
     onChanged = (e) => {
-        //this.base.sf 或 this.base.sfs设置状态，每次设置都会重新render
+        //this.base.sf or this.base.sfs, set the field value of state and rerender
         this.base.sfs({
             'data.input': e.target.value,
             'data.content': 'hello ' + e.target.value
         })
     }
 
-    alert = () => {
-        //this.base.gf 获取状态
+    submit = () => {
+        //this.base.gf get the field value of state
         alert(this.base.gf('data.content'))
     }
 }
@@ -39,16 +39,17 @@ const view = {
     component: 'div',
     className: 'a3',
     children: [{
-        component: 'div',  //可以使用所有原生html元素
-        children: `{{data.content}}` //可以绑定state的路径，{{表达式}}
+        component: 'div',  //all native HTML elements can be used
+        children: `{{data.content}}` //bind the path of state {{path}}
     }, {
         component: 'input',
+        palceholder: 'world',
         value: `{{data.input}}`,
-        onChange: `{{$onChanged}}` //可以调用action中的方法，{{$方法名}}
+        onChange: `{{$onChanged}}` //bind the method of action {{$method}}
     }, {
         component: 'button',
-        children: 'alert',
-        onClick: '{{$alert}}' 
+        children: 'submit',
+        onClick: '{{$submit}}' 
     }]
 }
 
