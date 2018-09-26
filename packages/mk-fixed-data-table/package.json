@@ -1,0 +1,25 @@
+{
+  "isMKApp": true,
+  "name": "@whatsmk/fixed-data-table",
+  "description": "fixed data table",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whatsmk/mk/packages/mk-fixed-data-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whatsmk/mk/packages/mk-fixed-data-table/issues"
+  },
+  "homepage": "https://github.com/whatsmk/mk/packages/mk-fixed-data-table#readme",
+  "scripts": {
+    "start": "mk start",
+    "build": "mk build",
+    "pkg": "mk pkg"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "fixed-data-table-2": "*"
+  }
+}
