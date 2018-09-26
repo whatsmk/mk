@@ -1,0 +1,24 @@
+{
+  "isMKApp": true,
+  "name": "@whatsmk/antd",
+  "description": "antd",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whatsmk/mk/packages/mk-antd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whatsmk/mk/packages/mk-antd/issues"
+  },
+  "homepage": "https://github.com/whatsmk/mk/packages/mk-antd#readme",
+  "scripts": {
+    "start": "mk start",
+    "build": "mk build",
+    "pkg": "mk pkg"
+  },
+  "dependencies": {
+    "antd": "*"
+  }
+}
