@@ -19,7 +19,7 @@ const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
-
+const utils = require('./utils');
 const config = require('../config/webpack.config.start');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
@@ -130,7 +130,7 @@ function startServer(option) {
 
 
   const protocol = serverOption.https === 'true' ? 'https' : 'http';
-  const appName = require(paths.appPackageJson).name;
+  const appName = utils.fixName(require(paths.appPackageJson).name);
   const urls = prepareUrls(protocol, host, port);
   config.entry = paths.appIndexJs
   // 创建webpack编译器

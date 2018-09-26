@@ -11,6 +11,8 @@ const paths = require('./paths');
 const env = getClientEnvironment();
 const appPackageJson = require(paths.appPackageJson);
 const appDirectory = fs.realpathSync(process.cwd());
+const appName = paths.appName
+
 module.exports = {
     mode: 'production',
     devtool: 'cheap-module-source-map',
@@ -21,9 +23,9 @@ module.exports = {
         paths.appIndexJs
     ],
     output: {
-        filename: appPackageJson.name + '.js',
+        filename: appName + '.js',
         path: path.join(appDirectory, "/build/dev/"),
-        library: "MKApp_" + appPackageJson.name.replace(/-/g, '_'),
+        library: "MKApp-" + appName,
         libraryTarget: "umd"
     },
     resolve: {
@@ -134,7 +136,7 @@ module.exports = {
         new webpack.DefinePlugin(env.stringified),
         //大小写匹配
         new CaseSensitivePathsPlugin(),
-        new MiniCssExtractPlugin({ filename: appPackageJson.name + '.css' })
+        new MiniCssExtractPlugin({ filename: appName + '.css' })
     ],
     node: {
         dgram: 'empty',

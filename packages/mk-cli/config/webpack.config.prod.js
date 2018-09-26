@@ -7,13 +7,14 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
-
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
 const env = getClientEnvironment();
 const appPackageJson = require(paths.appPackageJson);
 const appDirectory = fs.realpathSync(process.cwd());
+const appName = paths.appName;
+
 module.exports = {
     mode: 'production',
     optimization: {
@@ -30,9 +31,9 @@ module.exports = {
         paths.appIndexJs
     ],
     output: {
-        filename: appPackageJson.name + '.min.js',
+        filename: appName + '.min.js',
         path: path.join(appDirectory, "/build/prod/"),
-        library: "MKApp_" + appPackageJson.name.replace(/-/g, '_'),
+        library: "MKApp-" + appName,
         libraryTarget: "umd"
     },
     resolve: {
@@ -142,7 +143,7 @@ module.exports = {
         new webpack.DefinePlugin(env.stringified),
         //大小写匹配
         new CaseSensitivePathsPlugin(),
-        new MiniCssExtractPlugin({ filename: appPackageJson.name + '.min.css' })
+        new MiniCssExtractPlugin({ filename: appName + '.min.css' })
     ],
     node: {
         dgram: 'empty',

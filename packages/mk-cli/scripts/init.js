@@ -7,6 +7,7 @@ process.on('unhandledRejection', err => {
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
+const utils = require('./utils');
 const paths = require('../config/paths');
 
 module.exports = function (
@@ -22,16 +23,16 @@ module.exports = function (
     fs.copySync(templatePath, appPath);
 
     var styleContent = fs.readFileSync(path.join(appPath, 'style.less'), 'utf-8');
-    styleContent = styleContent.replace(/<appName>/g, appPackage.name);
+    styleContent = styleContent.replace(/<appName>/g, utils.fixName(appPackage.name));
     fs.writeFileSync(path.join(appPath, 'style.less'), styleContent);
 
 
     var htmlContent = fs.readFileSync(path.join(appPath, 'index.html'), 'utf-8');
-    htmlContent = htmlContent.replace(/<appName>/g, appPackage.name);
+    htmlContent = htmlContent.replace(/<appName>/g, utils.fixName(appPackage.name));
     fs.writeFileSync(path.join(appPath, 'index.html'), htmlContent);
 
     var readmeContent = fs.readFileSync(path.join(appPath, 'README.md'), 'utf-8');
-    readmeContent = readmeContent.replace(/<appName>/g, appPackage.name);
+    readmeContent = readmeContent.replace(/<appName>/g, utils.fixName(appPackage.name));
     fs.writeFileSync(path.join(appPath, 'README.md'), readmeContent);
 
   } else {
