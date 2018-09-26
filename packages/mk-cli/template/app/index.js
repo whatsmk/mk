@@ -6,7 +6,7 @@ const name = pkgJson.name
 
 const state = {
     data: {
-        content: 'hello',
+        content: 'hello ',
         input: ''
     }
 }
@@ -31,7 +31,7 @@ const view = {
         children: '{{data.content + data.input}}'
     }, {
         component: 'input',
-        palceholder: 'world',
+        placeholder: 'world',
         value: '{{data.input}}',
         onChange: '{{$onChange}}'
     }]
