@@ -1,7 +1,7 @@
 {
   "name": "@whatsmk/cli",
-  "version": "0.0.31",
-  "description": "mk脚手架",
+  "version": "0.0.32",
+  "description": "MK scaffolding",
   "license": "MIT",
   "repository": {
     "type": "git",
