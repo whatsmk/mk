@@ -6,7 +6,7 @@ const name = pkgJson.name
 
 const state = {
     data: {
-        content: 'hello',
+        content: 'hello ',
         input: ''
     }
 }
