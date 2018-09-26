@@ -31,7 +31,7 @@ const view = {
         children: '{{data.content + data.input}}'
     }, {
         component: 'input',
-        palceholder: 'world',
+        placeholder: 'world',
         value: '{{data.input}}',
         onChange: '{{$onChange}}'
     }]
