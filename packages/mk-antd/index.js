@@ -13,12 +13,12 @@ const state = { data: {} }
 @actionMixin('base')
 class action { }
 
-const meta = {
+const view = {
     component: 'div',
     _visible: 'false'
 }
 
-export default {
+export {
     name,
     state,
     action,

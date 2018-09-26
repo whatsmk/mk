@@ -100,12 +100,11 @@ export function getField(state, fieldPath) {
     if (!fieldPath) {
         return state.get('data')
     }
+    var r = fieldPath instanceof Array
+        ? state.getIn(fieldPath)
+        : state.getIn(fieldPath.split('.'))
 
-    if (fieldPath instanceof Array) {
-        return state.getIn(fieldPath)
-    } else {
-        return state.getIn(fieldPath.split('.'))
-    }
+    return r && r.toJS ? r.toJS() : r
 }
 
 export function getFields(state, fieldPaths) {
@@ -116,9 +115,9 @@ export function getFields(state, fieldPaths) {
 
 export function setField(state, fieldPath, value) {
     if (fieldPath instanceof Array) {
-        return state.setIn(fieldPath, value)
+        return state.setIn(fieldPath, value && fromJS(value))
     } else {
-        return state.setIn(fieldPath.split('.'), value)
+        return state.setIn(fieldPath.split('.'), value && fromJS(value))
     }
 }
 

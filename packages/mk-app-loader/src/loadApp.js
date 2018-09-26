@@ -13,30 +13,35 @@ const appConfig = (apps, options) => {
     })
 }
 
+function fixName(name){
+    if(name.indexOf('@') == -1) return name
+    return name.replace('@','').replace('whatsmk','mk').replace('/', '-')
+}
+
 
 export default function loadApp(app, isProduction) {
     var urls = [],
         options ={}
     
     if(typeof app == 'string'){
-        urls.push(app)
+        urls.push(fixName(app))
     }
     else if(app instanceof Array){
         app.forEach(o=>{
             if(typeof o == 'string'){
-                urls.push(o)
+                urls.push(fixName(o))
             }
             else if(typeof o == 'object' && o.url){
                 urls.push(o.url)
                 if(o.name && o.option)
-                    options[o.name] = o.option
+                    options[fixName(o.name)] = o.option
             }
         })
     }
     else if(typeof app == 'object' && app.url){
         urls.push(o.url)
         if(app.name && app.option)
-            options[app.name] = app.option
+            options[fixName(app.name)] = app.option
     }
 
     if(!window.require || urls.length == 0)

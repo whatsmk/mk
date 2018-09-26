@@ -13,8 +13,8 @@ const paths = require('./paths');
 const env = getClientEnvironment();
 const appPackageJson = require(paths.appPackageJson);
 const appDirectory = fs.realpathSync(process.cwd());
-const appName = paths.appName;
-
+const utils = require('../scripts/utils')
+const appName = utils.fixName(appPackageJson.name)
 module.exports = {
     mode: 'production',
     optimization: {

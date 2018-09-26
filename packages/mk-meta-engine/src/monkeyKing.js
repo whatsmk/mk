@@ -88,7 +88,7 @@ function metaToComponent(meta, props, data) {
                 if (p.indexOf('_rowIndex') != -1)
                     p = p.replace('_rowIndex', meta.path.split(',').length > 1 ? meta.path.split(',')[1].replace(' ', '') : 0)
 
-                let items = props.base.gf(p)
+                let items = props.base.gs(p)
 
                 if (!items || items.size == 0) return
                 items = items.toJS()
@@ -176,7 +176,7 @@ function metaToComponent(meta, props, data) {
 
 const MonkeyKing = (props) => {
     const { base } = props
-    const data = base.gf().toJS()
+    const data = base.gs().toJS()
     return metaToComponent(base.gm(undefined, undefined, data), props, data)
 }
 
