@@ -27,6 +27,10 @@ module.exports = function (
     fs.writeFileSync(path.join(appPath, 'style.less'), styleContent);
 
 
+    var indexContent = fs.readFileSync(path.join(appPath, 'index.js'), 'utf-8');
+    indexContent = indexContent.replace(/<appName>/g, utils.fixName(appPackage.name));
+    fs.writeFileSync(path.join(appPath, 'index.js'), indexContent);
+
     var htmlContent = fs.readFileSync(path.join(appPath, 'index.html'), 'utf-8');
     htmlContent = htmlContent.replace(/<appName>/g, utils.fixName(appPackage.name));
     fs.writeFileSync(path.join(appPath, 'index.html'), htmlContent);

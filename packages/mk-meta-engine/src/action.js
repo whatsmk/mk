@@ -34,7 +34,7 @@ export default class action {
 		}
 
 		var initState = (this.appInfo.state && this.appInfo.state.data) || {}
-		this.sf('data', fromJS(initState))
+		this.ss('data', fromJS(initState))
 
 		if (this.metaHandlers && this.metaHandlers.onInit) {
 			this.metaHandlers.onInit({ component, injections })
@@ -105,21 +105,17 @@ export default class action {
 		return appInstances
 	}
 
-
-	getField = (fieldPath) => {
+	getState = (fieldPath) => {
 		return common.getField(this.injections.getState(), fieldPath)
 	}
 
-	getFields = (fieldPaths) => {
-		return common.getFields(this.injections.getState(), fieldPaths)
-	}
-
-	setField = (fieldPath, value) => {
-		return this.injections.reduce('setField', fieldPath, value)
-	}
-
-	setFields = (values) => {
-		return this.injections.reduce('setFields', values)
+	setState =  (fieldPath, value) => {
+		if(value){
+			return this.injections.reduce('setField', fieldPath, value )
+		}
+		else{
+			return this.injections.reduce('setFields', fieldPath)
+		}
 	}
 
 	parseExpreesion = (v) => {
@@ -373,16 +369,11 @@ export default class action {
 		common.setMetaForce(appName, meta)
 	}
 
-
 	gm = this.getMeta
 
-	gf = this.getField
+	gs = this.getState
 
-	gfs = this.getFields
-
-	sf = this.setField
-
-	sfs = this.setFields
+	ss = this.setState
 
 	fromJS = fromJS
 

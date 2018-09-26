@@ -758,8 +758,8 @@
     "@xtuc/long" "4.2.1"
 
 "@whatsmk/app-loader@*":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@whatsmk/app-loader/-/app-loader-0.0.10.tgz#459145cbde7bc9865786077d5f1ddb68ae32f2c9"
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@whatsmk/app-loader/-/app-loader-0.0.11.tgz#073a7f64cd53647338894f7b99d31b793ae1fca7"
   dependencies:
     immutable "*"
     prop-types "*"
@@ -769,8 +769,8 @@
     redux "*"
 
 "@whatsmk/meta-engine@*":
-  version "0.0.26"
-  resolved "https://registry.yarnpkg.com/@whatsmk/meta-engine/-/meta-engine-0.0.26.tgz#1d363fbb5f762456adebf760783d76bbd822d464"
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@whatsmk/meta-engine/-/meta-engine-0.0.28.tgz#bd77753bc6ff3b0ffa61e1c4fdf0c32c563b1cad"
   dependencies:
     "@whatsmk/utils" "*"
     immutable "*"

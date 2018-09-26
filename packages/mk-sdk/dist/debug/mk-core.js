@@ -1313,24 +1313,29 @@ var appConfig = function appConfig(apps, options) {
   });
 };
 
+function fixName(name) {
+  if (name.indexOf('@') == -1) return name;
+  return name.replace('@', '').replace('whatsmk', 'mk').replace('/', '-');
+}
+
 function loadApp(app, isProduction) {
   var urls = [],
       options = {};
 
   if (typeof app == 'string') {
-    urls.push(app);
+    urls.push(fixName(app));
   } else if (app instanceof Array) {
     app.forEach(function (o) {
       if (typeof o == 'string') {
-        urls.push(o);
+        urls.push(fixName(o));
       } else if ((0, _typeof2.default)(o) == 'object' && o.url) {
         urls.push(o.url);
-        if (o.name && o.option) options[o.name] = o.option;
+        if (o.name && o.option) options[fixName(o.name)] = o.option;
       }
     });
   } else if ((0, _typeof2.default)(app) == 'object' && app.url) {
     urls.push(o.url);
-    if (app.name && app.option) options[app.name] = app.option;
+    if (app.name && app.option) options[fixName(app.name)] = app.option;
   }
 
   if (!window.require || urls.length == 0) return Promise.resolve(null);
@@ -1797,7 +1802,7 @@ var action = function action(option) {
     };
     var initState = _this.appInfo.state && _this.appInfo.state.data || {};
 
-    _this.sf('data', (0, _immutable.fromJS)(initState));
+    _this.ss('data', (0, _immutable.fromJS)(initState));
 
     if (_this.metaHandlers && _this.metaHandlers.onInit) {
       _this.metaHandlers.onInit({
@@ -1836,17 +1841,15 @@ var action = function action(option) {
   (0, _defineProperty2.default)(this, "getAppInstances", function () {
     return appInstances;
   });
-  (0, _defineProperty2.default)(this, "getField", function (fieldPath) {
+  (0, _defineProperty2.default)(this, "getState", function (fieldPath) {
     return common.getField(_this.injections.getState(), fieldPath);
   });
-  (0, _defineProperty2.default)(this, "getFields", function (fieldPaths) {
-    return common.getFields(_this.injections.getState(), fieldPaths);
-  });
-  (0, _defineProperty2.default)(this, "setField", function (fieldPath, value) {
-    return _this.injections.reduce('setField', fieldPath, value);
-  });
-  (0, _defineProperty2.default)(this, "setFields", function (values) {
-    return _this.injections.reduce('setFields', values);
+  (0, _defineProperty2.default)(this, "setState", function (fieldPath, value) {
+    if (value) {
+      return _this.injections.reduce('setField', fieldPath, value);
+    } else {
+      return _this.injections.reduce('setFields', fieldPath);
+    }
   });
   (0, _defineProperty2.default)(this, "parseExpreesion", function (v) {
     if (!_this.cache.expression) _this.cache.expression = {};
@@ -2085,10 +2088,8 @@ var action = function action(option) {
     common.setMetaForce(appName, meta);
   });
   (0, _defineProperty2.default)(this, "gm", this.getMeta);
-  (0, _defineProperty2.default)(this, "gf", this.getField);
-  (0, _defineProperty2.default)(this, "gfs", this.getFields);
-  (0, _defineProperty2.default)(this, "sf", this.setField);
-  (0, _defineProperty2.default)(this, "sfs", this.setFields);
+  (0, _defineProperty2.default)(this, "gs", this.getState);
+  (0, _defineProperty2.default)(this, "ss", this.setState);
   (0, _defineProperty2.default)(this, "fromJS", _immutable.fromJS);
   (0, _defineProperty2.default)(this, "context", _context.default);
   this.appInfo = option.appInfo;
@@ -2373,11 +2374,8 @@ function getField(state, fieldPath) {
     return state.get('data');
   }
 
-  if (fieldPath instanceof Array) {
-    return state.getIn(fieldPath);
-  } else {
-    return state.getIn(fieldPath.split('.'));
-  }
+  var r = fieldPath instanceof Array ? state.getIn(fieldPath) : state.getIn(fieldPath.split('.'));
+  return r && r.toJS ? r.toJS() : r;
 }
 
 function getFields(state, fieldPaths) {
@@ -2390,9 +2388,9 @@ function getFields(state, fieldPaths) {
 
 function setField(state, fieldPath, value) {
   if (fieldPath instanceof Array) {
-    return state.setIn(fieldPath, value);
+    return state.setIn(fieldPath, value && (0, _immutable.fromJS)(value));
   } else {
-    return state.setIn(fieldPath.split('.'), value);
+    return state.setIn(fieldPath.split('.'), value && (0, _immutable.fromJS)(value));
   }
 }
 
@@ -2988,7 +2986,7 @@ function metaToComponent(meta, props, data) {
         var p = meta._power.replace(/for[ ]+in/, '').replace(' ', '');
 
         if (p.indexOf('_rowIndex') != -1) p = p.replace('_rowIndex', meta.path.split(',').length > 1 ? meta.path.split(',')[1].replace(' ', '') : 0);
-        var items = props.base.gf(p);
+        var items = props.base.gs(p);
         if (!items || items.size == 0) return;
         items = items.toJS();
         return items.map(function (o, index) {
@@ -3069,7 +3067,7 @@ function metaToComponent(meta, props, data) {
 
 var MonkeyKing = function MonkeyKing(props) {
   var base = props.base;
-  var data = base.gf().toJS();
+  var data = base.gs().toJS();
   return metaToComponent(base.gm(undefined, undefined, data), props, data);
 };
 

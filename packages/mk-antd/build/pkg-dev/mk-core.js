@@ -1313,24 +1313,29 @@ var appConfig = function appConfig(apps, options) {
   });
 };
 
+function fixName(name) {
+  if (name.indexOf('@') == -1) return name;
+  return name.replace('@', '').replace('whatsmk', 'mk').replace('/', '-');
+}
+
 function loadApp(app, isProduction) {
   var urls = [],
       options = {};
 
   if (typeof app == 'string') {
-    urls.push(app);
+    urls.push(fixName(app));
   } else if (app instanceof Array) {
     app.forEach(function (o) {
       if (typeof o == 'string') {
-        urls.push(o);
+        urls.push(fixName(o));
       } else if ((0, _typeof2.default)(o) == 'object' && o.url) {
         urls.push(o.url);
-        if (o.name && o.option) options[o.name] = o.option;
+        if (o.name && o.option) options[fixName(o.name)] = o.option;
       }
     });
   } else if ((0, _typeof2.default)(app) == 'object' && app.url) {
     urls.push(o.url);
-    if (app.name && app.option) options[app.name] = app.option;
+    if (app.name && app.option) options[fixName(app.name)] = app.option;
   }
 
   if (!window.require || urls.length == 0) return Promise.resolve(null);

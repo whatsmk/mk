@@ -6,7 +6,8 @@ const name = pkgJson.name
 
 const state = {
     data: {
-        content: 'hello'
+        content: 'hello',
+        input: ''
     }
 }
 
@@ -16,40 +17,23 @@ class action {
         Object.assign(this, option.mixins)
     }
 
-    //called once on initialization
-    onInit = () => {
-        console.log('init')
-    }
-
-    onChanged = (e) => {
-        //this.base.sf or this.base.sfs, set the field value of state and rerender
-        this.base.sfs({
-            'data.input': e.target.value,
-            'data.content': 'hello ' + e.target.value
-        })
-    }
-
-    submit = () => {
-        //this.base.gf get the field value of state
-        alert(this.base.gf('data.content'))
+    onChange = (e) => {
+        this.base.setState({ 'data.input': e.target.value })
+        console.log(this.base.getState('data.input'))
     }
 }
 
 const view = {
     component: 'div',
-    className: 'a3',
+    className: '<appName>',
     children: [{
-        component: 'div',  //all native HTML elements can be used
-        children: `{{data.content}}` //bind the path of state {{path}}
+        component: 'div',
+        children: '{{data.content + data.input}}'
     }, {
         component: 'input',
         palceholder: 'world',
-        value: `{{data.input}}`,
-        onChange: `{{$onChanged}}` //bind the method of action {{$method}}
-    }, {
-        component: 'button',
-        children: 'submit',
-        onClick: '{{$submit}}' 
+        value: '{{data.input}}',
+        onChange: '{{$onChange}}'
     }]
 }
 

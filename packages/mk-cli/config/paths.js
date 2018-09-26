@@ -55,7 +55,6 @@ module.exports = {
     appIndexJs: resolveApp('index.js'),
     appPackageJson: resolveApp('package.json'),
     appSrc: resolveApp('.'),
-    appName: fixName(appPackageJson.name),
     yarnLockFile: resolveApp('yarn.lock'),
     appNodeModules: resolveApp('node_modules'),
     publicUrl: getPublicUrl(resolveApp('package.json')),

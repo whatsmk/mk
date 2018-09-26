@@ -1,6 +1,6 @@
 {
   "name": "@whatsmk/meta-engine",
-  "version": "0.0.26",
+  "version": "0.0.28",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
