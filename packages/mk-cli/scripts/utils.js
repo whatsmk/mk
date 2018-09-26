@@ -51,7 +51,15 @@ function checkIfOnline(useYarn) {
     });
 }
 
+function fixName(name){
+    if(name.indexOf('@') == -1) return name
+    return name.replace('@','').replace('whatsmk','mk').replace('/', '-')
+}
+
+
+
 module.exports = {
-    yarn : yarn
+    yarn : yarn,
+    fixName
 }
 
