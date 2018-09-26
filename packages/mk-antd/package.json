@@ -2,7 +2,7 @@
   "isMKApp": true,
   "name": "@whatsmk/antd",
   "description": "antd",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "author": "",
   "repository": {
@@ -18,7 +18,8 @@
     "build": "mk build",
     "pkg": "mk pkg"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "antd": "*"
   }
 }
