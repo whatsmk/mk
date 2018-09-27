@@ -35,7 +35,6 @@ class AppLoader extends React.Component {
 		}
 	}
 
-	//cxb效率优化点，由主动更新变更为状态比较更新?
 	shouldComponentUpdate(nextProps, nextState) {
 		return true
 	}

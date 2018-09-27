@@ -8,10 +8,9 @@ class appFactory {
 
     registerApp = (name, app) => {
         if (this.apps[name]) {
-            console.log(`已经注册过这个app，name: ${name},忽略`)
+            console.log(`Already registered this app，name: ${name},please ignore`)
             return
         }
-        //throw `已经注册过这个app，不能重复注册. name: ${name}`
 
         this.apps[name] = app
     }
@@ -25,18 +24,18 @@ class appFactory {
 
     existsApp = (name) => {
         name = name.replace(/(\.js)|(\.min\.js)/, '')
-        return  !!this.apps[name]
+        return !!this.apps[name]
     }
 
     getApp = (name) => {
         name = name.replace(/(\.js)|(\.min\.js)/, '')
         var app = this.apps[name]
 
-        if(app)
+        if (app)
             return app
 
         if (!app) {
-            throw `没有注册这个app. name: ${name}`
+            throw `unregistered this app. name: ${name}`
         }
         return app
     }
