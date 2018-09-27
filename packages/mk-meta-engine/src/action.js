@@ -109,11 +109,11 @@ export default class action {
 		return common.getField(this.injections.getState(), fieldPath)
 	}
 
-	setState =  (fieldPath, value) => {
-		if(value){
-			return this.injections.reduce('setField', fieldPath, value )
+	setState = (fieldPath, value) => {
+		if (value) {
+			return this.injections.reduce('setField', fieldPath, value)
 		}
-		else{
+		else {
 			return this.injections.reduce('setFields', fieldPath)
 		}
 	}
@@ -269,7 +269,6 @@ export default class action {
 			excludeProps = this.execExpression(excludeProps, data, path, rowIndex, vars, ctrlPath)
 		}
 
-		//去除meta的排除属性
 		if (excludeProps && excludeProps instanceof Array) {
 			for (var i = 0; i < excludeProps.length; i++) {
 				if (meta[excludeProps[i]])

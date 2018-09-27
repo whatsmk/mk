@@ -5,7 +5,7 @@ class templateFactory {
 
     registerTemplate(name, templateHandler) {
         if (this.templates[name]) {
-            console.log( `模板已经存在. name: ${name},忽略`)
+            console.log(`Template already exists. name: ${name},please ignore!`)
             return
         }
         this.templates[name] = templateHandler

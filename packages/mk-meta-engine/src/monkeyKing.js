@@ -123,7 +123,6 @@ function metaToComponent(meta, props, data) {
             delete allProps.path
 
 
-            //使用omit性能较低
             //allProps = omit(allProps, ['clearAppState', 'component', 'name', 'getDirectFuns', 'initView', 'payload'])
             if (componentName == 'AppLoader') {
                 var propKeys = Object.keys(props),
@@ -135,7 +134,7 @@ function metaToComponent(meta, props, data) {
                     }
                 }
 
-                //删除一些组件不需要的属性
+                //Remove attributes that are not required by some components
                 delete allProps.clearAppState
                 delete allProps.getDirectFuns
                 delete allProps.initView

@@ -24,7 +24,7 @@ class reducer {
 			data,
 		} = option
 
-		//清除state中非@@开头的属性，那属性是mk-app-loader增加的
+		//Clear the attribute in the state that is not @@, which is added by mk-app-loader
 		const keys = []
 		state.mapKeys(key => {
 			if (key.indexOf('@@') === -1)
@@ -35,7 +35,7 @@ class reducer {
 			state = state.remove(key)
 		})
 
-		//设置状态
+		//Setting status
 		return state
 			.set('data', data)
 	}

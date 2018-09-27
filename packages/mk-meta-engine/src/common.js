@@ -47,7 +47,6 @@ export function setMetaForce(appName, meta) {
 }
 
 export function getMeta(appInfo, fullpath, propertys) {
-    //path空取整个meta
     if (!fullpath)
         return cache.meta.getIn([appInfo.name, 'meta']).toJS()
 
@@ -60,13 +59,13 @@ export function getMeta(appInfo, fullpath, propertys) {
 
     const currentMeta = path ? meta.getIn(path.split('.')) : meta
 
-    //属性空，获取该路径下所有属性
+    //Empty attribute, get all attributes under the path
     if (!propertys)
         return currentMeta.toJS()
 
     const ret = {}
 
-    //属性为数组，遍历获取
+    //Attribute is an array
     if (propertys instanceof Array) {
         var i, p;
 
@@ -78,14 +77,13 @@ export function getMeta(appInfo, fullpath, propertys) {
         /*
         propertys.forEach(p => {
             let val = currentMeta.getIn(p.split('.'))
-            //immutable值，直接toJS()
             ret[p] = (val && val.toJS) ? val.toJS() : val
         })*/
 
         return ret
     }
 
-    //属性为字符串，直接获取
+    //Attribute is a string
     if (typeof propertys == 'string') {
         let val = currentMeta.getIn(propertys.split('.'))
         return (val && val.toJS) ? val.toJS() : val

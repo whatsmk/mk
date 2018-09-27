@@ -5,7 +5,7 @@ class actionFactory {
 
     registerAction(name, action) {
         if (this.actions[name]) {
-            console.log(`action已经存在. name: ${name}, 忽略`)
+            console.log(`Action already exists. name: ${name}, please ignore!`)
         }
         this.actions[name] = action
     }
@@ -14,17 +14,17 @@ class actionFactory {
     registerActions(actions) {
         if (!actions || actions.length == 0)
             return
-            actions.forEach(c => this.registerAction(c.name, c.action))
+        actions.forEach(c => this.registerAction(c.name, c.action))
     }
 
     getAction(name) {
         if (!name)
-            throw `action name不能为空`
+            throw `Action name cannot be empty`
 
         var action = this.actions[name]
 
         if (!action) {
-            throw `找不到action,name:${name}`
+            throw `Can't find action,name:${name}`
         }
 
         return action

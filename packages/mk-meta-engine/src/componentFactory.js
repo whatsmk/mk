@@ -6,7 +6,7 @@ class componentFactory {
 
     registerComponent(name, component) {
         if (this.components[name]) {
-            console.log( `组件已经存在. name: ${name},忽略`)
+            console.log(`Component already exists. name: ${name},please ignore!`)
             return
         }
         this.components[name] = component
@@ -17,7 +17,7 @@ class componentFactory {
         this.appComponents[appName] = this.appComponents[appName] || {}
         this.appComponents[appName].components = this.appComponents[appName].components || {}
         if (this.appComponents[appName].components[componentName])
-            throw `组件existed. app:${appName}, name: ${componentName}`
+            throw `existed. app:${appName}, name: ${componentName}`
         this.appComponents[appName].components[componentName] = component
     }*/
 
@@ -36,7 +36,7 @@ class componentFactory {
             if(name.substr(2))
                 return  name.substr(2) 
             else
-                throw `没有组件. name: ::`
+                throw `No components. name: ::`
         }*/
 
         const nameSegs = name.split('.'),
@@ -62,7 +62,7 @@ class componentFactory {
 
         if (!component) {
             return name
-            //throw `没有组件. name: ${name}`
+            //throw `No components. name: ${name}`
         }
 
         return component

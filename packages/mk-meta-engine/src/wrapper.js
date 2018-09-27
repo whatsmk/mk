@@ -18,7 +18,7 @@ export default function wrapper(option) {
 			}
 
 			componentDidMount() {
-				this.props.initView && this.props.initView(this) //兼容以前版本
+				this.props.initView && this.props.initView(this)
 				this.props.componentDidMount && this.props.componentDidMount()
 			}
 
@@ -64,7 +64,7 @@ export default function wrapper(option) {
 
 
 			componentWillUnmount() {
-				this.props.unmount && this.props.unmount() //兼容以前版本
+				this.props.unmount && this.props.unmount()
 				this.props.componentWillUnmount
 					&& this.props.componentWillUnmount()
 			}
