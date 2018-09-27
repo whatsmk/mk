@@ -8,9 +8,9 @@ const consts = require('../config/consts');
 let appName = process.argv[2];
 
 if (typeof appName === 'undefined') {
-    console.error('请输入appName:');
+    console.error('please input appName:');
     console.log();
-    console.log('示例:');
+    console.log('example:');
     console.log(`  mk add ${chalk.green('login')}`);
     console.log();
     process.exit(1);

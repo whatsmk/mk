@@ -5,7 +5,7 @@ import FixedDataTable from 'fixed-data-table-2'
 
 const name = pkgJson.name
 
-//注册组件
+//Registration component
 componentFactory.registerComponent('FixedDataTable', FixedDataTable)
 
 const view = { name: 'root', component: 'div', _visible: 'false' }

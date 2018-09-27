@@ -35,7 +35,7 @@ function publish(root, isOnline) {
         args.push(root);
 
         if (!isOnline) {
-            console.log(chalk.yellow('请联网.'));
+            console.log(chalk.yellow('Please connect to the network.'));
             console.log();
             resolve(false);
         }
@@ -50,13 +50,13 @@ function publish(root, isOnline) {
                 return;
             }
         });
-       
+
     });
 }
 
 function scan() {
     const spawn = require('react-dev-utils/crossSpawn');
-    spawn.sync('node',[require.resolve('./scan.js')],{ stdio: 'inherit' });
+    spawn.sync('node', [require.resolve('./scan.js')], { stdio: 'inherit' });
 }
 
 function getProxy() {

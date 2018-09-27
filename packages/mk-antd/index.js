@@ -5,7 +5,7 @@ import './style.less'
 
 const name = pkgJson.name
 
-//注册组件
+//Registration component
 componentFactory.registerComponent('antd', components)
 
 const state = { data: {} }

@@ -20,14 +20,14 @@ const newPath = process.argv[3];
 const newName = newPath.split('/').pop();
 
 if (typeof appName === 'undefined' || typeof newName === 'undefined') {
-    console.error('请输入要拷贝的应用名以及新的名字');
+    console.error('Please enter the name to be copied');
     console.log();
-    console.log('示例:');
+    console.log('example:');
     console.log(`  mk clone ${chalk.green('mk-app-root')} ${chalk.green('my-root')} `);
     console.log();
     process.exit(1);
-  }
-  
+}
+
 const targetPath = path.join(paths.appSrc, 'apps', newPath)
 
 if (fs.existsSync(targetPath)) {
@@ -36,24 +36,24 @@ if (fs.existsSync(targetPath)) {
     process.exit(1);
 }
 
-console.log(chalk.green(`开始执行clone...`));
+console.log(chalk.green(`begin execution clone...`));
 console.log()
 
 checkIfOnline()
     .then(isOnline => add(paths.appSrc, isOnline))
-    .then(()=>cp(paths.appSrc))
+    .then(() => cp(paths.appSrc))
     .then(() => remove(paths.appSrc, true))
-    .then(()=>init(paths.appSrc))
-    .then(()=>{
+    .then(() => init(paths.appSrc))
+    .then(() => {
         console.log('')
-        console.log(`${chalk.green('clone成功')}`)
+        console.log(`${chalk.green('clone success')}`)
         console.log('')
         console.log(`请在目录${chalk.green(path.resolve(targetPath))}中修改克隆后的代码`)
         console.log('')
     })
 
 function add(root, isOnline) {
-    console.log(`  ${chalk.bold('[1/4]')} 增加安装包...`)
+    console.log(`  ${chalk.bold('[1/4]')} Installation package...`)
     return new Promise((resolve, reject) => {
         let command;
         let args;
@@ -67,7 +67,7 @@ function add(root, isOnline) {
         args.push(root);
 
         if (!isOnline) {
-            console.log(chalk.yellow('请联网.'));
+            console.log(chalk.yellow('Please connect to the network.'));
             console.log();
             resolve(false);
         }
@@ -76,16 +76,16 @@ function add(root, isOnline) {
     });
 }
 
-function cp(root){
-    console.log(`  ${chalk.bold('[2/4]')} 拷贝安装包...`)
+function cp(root) {
+    console.log(`  ${chalk.bold('[2/4]')} copy installation package...`)
     let srcPath = path.join(root, 'node_modules', appName)
     if (fs.existsSync(srcPath)) {
         fs.copySync(srcPath, targetPath);
     }
 }
 
-function remove(root){
-    console.log(`  ${chalk.bold('[3/4]')} 删除安装包...`)
+function remove(root) {
+    console.log(`  ${chalk.bold('[3/4]')} remove installation package...`)
     return new Promise((resolve, reject) => {
         let command;
         let args;
@@ -100,13 +100,13 @@ function remove(root){
 }
 
 function init(root) {
-    console.log(`  ${chalk.bold('[4/4]')} 应用初始化...`)
+    console.log(`  ${chalk.bold('[4/4]')} application initialization...`)
     return new Promise((resolve, reject) => {
-        let pkg = JSON.parse(fs.readFileSync(path.join( targetPath, 'package.json'), 'utf-8'))
+        let pkg = JSON.parse(fs.readFileSync(path.join(targetPath, 'package.json'), 'utf-8'))
         pkg.name = newName
         pkg.description = newName
         pkg.version = '1.0.0'
-        fs.writeFileSync(path.join(targetPath, 'package.json'),  JSON.stringify(pkg, null, 2));
+        fs.writeFileSync(path.join(targetPath, 'package.json'), JSON.stringify(pkg, null, 2));
         resolve(true);
     });
 }

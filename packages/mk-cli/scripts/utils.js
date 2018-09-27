@@ -3,7 +3,7 @@ const dns = require('dns');
 const chalk = require('chalk');
 const spawn = require('react-dev-utils/crossSpawn');
 
-async function yarn(args, root){
+async function yarn(args, root) {
     let command;
     let isOnline = await checkIfOnline()
 
@@ -15,7 +15,7 @@ async function yarn(args, root){
     args.push(root);
 
     if (!isOnline) {
-        console.log(chalk.yellow('请联网.'));
+        console.log(chalk.yellow('Please connect to the network.'));
         console.log();
     }
     spawn.sync(command, args, { stdio: 'inherit' });
@@ -51,15 +51,15 @@ function checkIfOnline(useYarn) {
     });
 }
 
-function fixName(name){
-    if(name.indexOf('@') == -1) return name
-    return name.replace('@','').replace('whatsmk','mk').replace('/', '-')
+function fixName(name) {
+    if (name.indexOf('@') == -1) return name
+    return name.replace('@', '').replace('whatsmk', 'mk').replace('/', '-')
 }
 
 
 
 module.exports = {
-    yarn : yarn,
+    yarn: yarn,
     fixName
 }
 

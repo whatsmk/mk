@@ -33,7 +33,6 @@ const {
   prepareUrls,
 } = require('react-dev-utils/WebpackDevServerUtils');
 
-// 检测必须的文件，不存在自动退出
 if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
@@ -54,7 +53,7 @@ async function main() {
   createDir(paths.appPublic)
   copyCoreLib(paths.appPublic, paths.appPath)
   scanAppDep(paths.appPath)
- 
+
   copyLocalDep(paths.appPath)
   copyRemoteDep(paths.appPath)
   copyHtmlFile(paths.appPublic, paths.appPath)
@@ -70,7 +69,6 @@ function createDir(publicPath) {
     fs.mkdirSync(publicPath);
   }
   else {
-    //清空目录中文件
     fs.emptyDirSync(publicPath);
   }
 }
@@ -103,20 +101,20 @@ function copyRemoteDep(appPath) {
 }
 
 function copyHtmlFile(publicPath, appPath) {
-  fs.copyFileSync(path.resolve(appPath, 'index.html'), path.join(publicPath,'index.html'));
+  fs.copyFileSync(path.resolve(appPath, 'index.html'), path.join(publicPath, 'index.html'));
 }
 
 
 function getServerOption(appPath) {
-    const mkJson = JSON.parse(fs.readFileSync(path.join(appPath, 'mk.json'), 'utf-8'))
-    const serverOption = mkJson.server
-    const DEFAULT_PORT = parseInt(serverOption.port, 10) || 8000
-    const HOST = serverOption.host || '0.0.0.0'
-    return {
-      port: DEFAULT_PORT,
-      host: HOST,
-      serverOption
-    }
+  const mkJson = JSON.parse(fs.readFileSync(path.join(appPath, 'mk.json'), 'utf-8'))
+  const serverOption = mkJson.server
+  const DEFAULT_PORT = parseInt(serverOption.port, 10) || 8000
+  const HOST = serverOption.host || '0.0.0.0'
+  return {
+    port: DEFAULT_PORT,
+    host: HOST,
+    serverOption
+  }
 }
 
 function startServer(option) {
@@ -124,7 +122,7 @@ function startServer(option) {
   const port = option.port
   const host = option.host
   if (port == null) {
-    // 没有端口直接返回
+    // No port to return directly
     return;
   }
 
@@ -133,26 +131,26 @@ function startServer(option) {
   const appName = utils.fixName(require(paths.appPackageJson).name);
   const urls = prepareUrls(protocol, host, port);
   config.entry = paths.appIndexJs
-  // 创建webpack编译器
+
   const compiler = createCompiler(webpack, config, appName, urls, true);
-  // 加载代理配置
+  // Load agent configuration
   const proxySetting = serverOption.proxy;
   const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
-  // 服务器配置
+  // server configuration
   const serverConfig = createDevServerConfig(
     proxyConfig,
     urls.lanUrlForConfig
   );
 
   const devServer = new WebpackDevServer(compiler, serverConfig);
-  // 启动服务器
+  // Start the server
   devServer.listen(port, host, err => {
     if (err) {
       return console.log(err);
     }
 
     clearConsole();
-    console.log(chalk.cyan('启动服务器...\n'));
+    console.log(chalk.cyan('Start the server...\n'));
     //openBrowser(urls.localUrlForBrowser);
   });
 

@@ -29,7 +29,7 @@ try {
     main()
 }
 catch (err) {
-    console.log(chalk.red('打包失败.\n'));
+    console.log(chalk.red('Package failure.\n'));
     //输出编译异常
     printBuildError(err);
     process.exit(1);
@@ -44,19 +44,18 @@ async function main() {
     copyRemoteDep(paths.appPath)
     createHtmlFile(paths.appPackage, paths.appPath)
 
-    console.log(chalk.green(`打包成功,输出目录:${paths.appPackage}\n`));
+    console.log(chalk.green(`Packaged successfully,Output directory:${paths.appPackage}\n`));
     return Promise.resolve()
 }
 
 
 function emptyDir() {
-    console.log(`  ${chalk.bold('[1/6]')} 清空目录:${paths.appPackage}`)
-    //清空目录中文件
+    console.log(`  ${chalk.bold('[1/6]')} Empty directory:${paths.appPackage}`)
     fs.emptyDirSync(paths.appPackage);
 }
 
 function copyCoreLib() {
-    console.log(`  ${chalk.bold('[2/6]')} 复制sdk...`)
+    console.log(`  ${chalk.bold('[2/6]')} Copy sdk...`)
     let libPath = path.resolve(appDirectory, 'node_modules', 'mk-command', 'sdk', 'release')
     if (!fs.existsSync(paths.appPackage)) {
         fs.mkdirSync(paths.appPackage);
@@ -65,7 +64,7 @@ function copyCoreLib() {
 }
 
 function scanAppDep(appPath) {
-    console.log(`  ${chalk.bold('[3/6]')} 扫描依赖app...`)
+    console.log(`  ${chalk.bold('[3/6]')} Scan dependent app...`)
     spawn.sync('node',
         [path.resolve(appPath, 'node_modules', 'mk-command', 'scripts', 'scan.js')],
         { stdio: 'inherit' }
@@ -73,7 +72,7 @@ function scanAppDep(appPath) {
 }
 
 function copyLocalDep(appPath) {
-    console.log(`  ${chalk.bold('[4/6]')} 复制本地依赖app...`)
+    console.log(`  ${chalk.bold('[4/6]')} Copy local dependent app...`)
     spawn.sync('node',
         [path.resolve(appPath, 'node_modules', 'mk-command', 'scripts', 'copy-local-dep.js'), 'release', paths.appPackage],
         { stdio: 'inherit' }
@@ -81,7 +80,7 @@ function copyLocalDep(appPath) {
 }
 
 function copyRemoteDep(appPath) {
-    console.log(`  ${chalk.bold('[5/6]')} 复制远程依赖app...`)
+    console.log(`  ${chalk.bold('[5/6]')} Copy remote dependency app...`)
     spawn.sync('node',
         [path.resolve(appPath, 'node_modules', 'mk-command', 'scripts', 'copy-remote-dep.js'), 'release', paths.appPackage],
         { stdio: 'inherit' }
@@ -89,7 +88,7 @@ function copyRemoteDep(appPath) {
 }
 
 function createHtmlFile(publicPath, appPath) {
-    console.log(`  ${chalk.bold('[6/6]')} 创建html文件...`)
+    console.log(`  ${chalk.bold('[6/6]')} Create an html file...`)
     const htmlTplPath = path.resolve(appPath, 'index.html');
     let html = fs.readFileSync(htmlTplPath, 'utf-8');
     template.defaults.imports.stringify = JSON.stringify;

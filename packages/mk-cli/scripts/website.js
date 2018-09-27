@@ -6,15 +6,15 @@ const path = require('path');
 let projectName = process.argv[2];
 
 if (typeof projectName === 'undefined') {
-  console.error('请输入websiteName:');
+  console.error('Please enter the website name:');
   console.log();
-  console.log('示例:');
+  console.log('example:');
   console.log(`  mk website ${chalk.green('hello-world')}`);
   console.log();
   process.exit(1);
 }
 
-console.log(chalk.green(`开始创建网站...`));
+console.log(chalk.green(`Start creating a website...`));
 const root = path.resolve(projectName);
 const websiteName = path.basename(root);
 
@@ -30,14 +30,13 @@ catch (reason) {
 }
 
 function createDir(root, name) {
-  console.log(`  ${chalk.bold('[1/5]')} 创建目录:${root}...`)
+  console.log(`  ${chalk.bold('[1/5]')} Create a directory:${root}...`)
   fs.ensureDirSync(name);
-  //更换工作目录
   process.chdir(root);
 }
 
 function createPackageJson(root, websiteName) {
-  console.log(`  ${chalk.bold('[2/5]')} 创建package.json文件...`)
+  console.log(`  ${chalk.bold('[2/5]')} Create package.json file...`)
   const packageJson = {
     isMKWebsite: true,
     name: websiteName,
@@ -66,7 +65,7 @@ function createPackageJson(root, websiteName) {
 }
 
 function createMKJson(root, name) {
-  console.log(`  ${chalk.bold('[3/5]')} 创建mk.json文件...`)
+  console.log(`  ${chalk.bold('[3/5]')} Create mk.json file...`)
   const mkJson = {
     rootApp: 'welcome',
     server: {
@@ -83,13 +82,13 @@ function createMKJson(root, name) {
 }
 
 function install() {
-  console.log(`  ${chalk.bold('[4/5]')} 执行安装依赖...`)
+  console.log(`  ${chalk.bold('[4/5]')} Installation dependence...`)
   const spawn = require('react-dev-utils/crossSpawn');
   spawn.sync('node', [require.resolve('./install.js')], { stdio: 'inherit' });
 }
 
 function init(name, root) {
-  console.log(`  ${chalk.bold('[5/5]')} 初始化网站...`)
+  console.log(`  ${chalk.bold('[5/5]')} Initialize the website...`)
   const paths = require('../config/paths');
   const initScriptPath = path.resolve(
     process.cwd(),
@@ -105,11 +104,11 @@ function init(name, root) {
 
 function exceptionHandler(reason, root) {
   console.log();
-  console.log('安装退出.');
+  console.log('Installation exit.');
   if (reason.command) {
-    console.log(`  ${chalk.cyan(reason.command)} 失败.`);
+    console.log(`  ${chalk.cyan(reason.command)} failure.`);
   } else {
-    console.log(chalk.red('未知异常，请提交错误报告:'));
+    console.log(chalk.red('Unknown exception, please submit an error report:'));
     console.log(reason);
   }
   console.log();
@@ -128,7 +127,7 @@ function exceptionHandler(reason, root) {
         (fileToMatch.match(/.log/g) && file.indexOf(fileToMatch) === 0) ||
         file === fileToMatch
       ) {
-        console.log(`删除生成的文件... ${chalk.cyan(file)}`);
+        console.log(`Delete generated file... ${chalk.cyan(file)}`);
         fs.removeSync(path.join(root, file));
       }
     });
@@ -136,7 +135,7 @@ function exceptionHandler(reason, root) {
   const remainingFiles = fs.readdirSync(path.join(root));
   if (!remainingFiles.length) {
     console.log(
-      `删除应用 ${chalk.cyan(`${appName} /`)}, 目录: ${chalk.cyan(
+      `Delete app ${chalk.cyan(`${appName} /`)}, directory : ${chalk.cyan(
         path.resolve(root, '..')
       )}`
     );

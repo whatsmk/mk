@@ -3,7 +3,7 @@
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
-//promise未处理reject的异常
+//The promise does not handle the exception of the reject
 process.on('unhandledRejection', err => {
     throw err;
 });
@@ -16,7 +16,7 @@ const chalk = require('chalk');
 const paths = require('../config/paths');
 
 const isRelease = process.argv[2] === 'release'
-const targetPath =  process.argv[3] || paths.appPublic
+const targetPath = process.argv[3] || paths.appPublic
 const mkJson = require(path.join(paths.appSrc, 'mk.json'));
 
 Object.keys(mkJson.dependencies).forEach(k => {

@@ -41,7 +41,7 @@ module.exports = function (
 
   } else {
     console.error(
-      `找不到应用模板: ${chalk.green(templatePath)}`
+      `Application template not found: ${chalk.green(templatePath)}`
     );
     return;
   }
@@ -52,7 +52,7 @@ module.exports = function (
     [],
     err => {
       if (err) {
-        //已经存在替换内容
+        //Alternate content already exists
         if (err.code === 'EEXIST') {
           const data = fs.readFileSync(path.join(appPath, 'gitignore'));
           fs.appendFileSync(path.join(appPath, '.gitignore'), data);
@@ -70,7 +70,7 @@ module.exports = function (
     [],
     err => {
       if (err) {
-        //已经存在替换内容
+        //Alternate content already exists
         if (err.code === 'EEXIST') {
           const data = fs.readFileSync(path.join(appPath, 'npmignore'));
           fs.appendFileSync(path.join(appPath, '.npmignore'), data);
@@ -92,26 +92,26 @@ module.exports = function (
   const displayedCommand = useYarn ? 'yarn' : 'npm';
 
   console.log();
-  console.log(`创建应用 ${appName} 成功，目录：${appPath}`);
-  console.log('你可以在该目录下运行下面命令:');
+  console.log(`Create app ${appName} success，directory：${appPath}`);
+  console.log('Enter the directory and Run command:');
   console.log();
   console.log(chalk.cyan(`  ${displayedCommand} start`));
-  console.log('    启动开发服务器.');
+  console.log('    Start the development server.');
   console.log();
   console.log(
     chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}build`)
   );
-  console.log('    编译应用.');
+  console.log('    Compile the application.');
   console.log();
   console.log(
     chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}pkg`)
   );
-  console.log('    打包应用.');
+  console.log('    Packaged application.');
   console.log();
-  console.log('建议从下面的命令开始:');
+  console.log('Start run command:');
   console.log();
   console.log(chalk.cyan('  cd'), appName);
   console.log(`  ${chalk.cyan(`${displayedCommand} start`)}`);
   console.log();
-  console.log('感谢您使用mk!');
+  console.log('Thank you for using mk!');
 };

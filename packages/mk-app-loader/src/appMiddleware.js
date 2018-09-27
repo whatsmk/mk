@@ -72,7 +72,7 @@ export default (actionInjections, reducerInjections) => (store) => {
 				appInfo = appFactory.getApp(parsedName.name)
 
 				if (!appInfo) {
-					console.error(`加载应用${parsed.name}失败`)
+					console.error(`Loading app ${parsed.name} failed`)
 					return next(action)
 				}
 
@@ -82,7 +82,7 @@ export default (actionInjections, reducerInjections) => (store) => {
 						fullName,
 						appInfo,
 						prevFullName,
-						action:appInfo.action
+						action: appInfo.action
 					}
 				})
 			}

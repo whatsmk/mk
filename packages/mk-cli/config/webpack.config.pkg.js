@@ -92,48 +92,48 @@ module.exports = {
             test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
             exclude: paths.appNodeModules,
-            loader:  path.resolve(__dirname, '..', 'node_modules', 'babel-loader'),
-            options:{
+            loader: path.resolve(__dirname, '..', 'node_modules', 'babel-loader'),
+            options: {
                 babelrc: false,
                 "presets": [
-                  [path.resolve(__dirname, '..', 'node_modules', "@babel/preset-env"), {
-                    "targets": {
-                      "browsers": [ "ie >= 11", "chrome >= 60" ]
-                    }      
-                  }],
-                  [path.resolve(__dirname, '..', 'node_modules',"@babel/preset-react")]
+                    [path.resolve(__dirname, '..', 'node_modules', "@babel/preset-env"), {
+                        "targets": {
+                            "browsers": ["ie >= 11", "chrome >= 60"]
+                        }
+                    }],
+                    [path.resolve(__dirname, '..', 'node_modules', "@babel/preset-react")]
                 ],
                 "plugins": [
-                  [path.resolve(__dirname, '..', 'node_modules', "@babel/plugin-transform-runtime"), {
-                    "corejs": false,
-                    "helpers": true,
-                    "regenerator": true,
-                    "useESModules": false,
-                    "absoluteRuntime": path.resolve(__dirname)
-                  }],
-                  [path.resolve(__dirname, '..', 'node_modules',"@babel/plugin-proposal-class-properties")],
-                  [path.resolve(__dirname, '..', 'node_modules',"@babel/plugin-proposal-decorators"),{
-                    "legacy": true
-                  }]
+                    [path.resolve(__dirname, '..', 'node_modules', "@babel/plugin-transform-runtime"), {
+                        "corejs": false,
+                        "helpers": true,
+                        "regenerator": true,
+                        "useESModules": false,
+                        "absoluteRuntime": path.resolve(__dirname)
+                    }],
+                    [path.resolve(__dirname, '..', 'node_modules', "@babel/plugin-proposal-class-properties")],
+                    [path.resolve(__dirname, '..', 'node_modules', "@babel/plugin-proposal-decorators"), {
+                        "legacy": true
+                    }]
                 ]
-              }
-        
+            }
+
         }, {
             test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, path.resolve(__dirname, '..', 'node_modules','css-loader')]
+            use: [MiniCssExtractPlugin.loader, path.resolve(__dirname, '..', 'node_modules', 'css-loader')]
         }, {
             test: /\.less$/,
-            use: [MiniCssExtractPlugin.loader,  path.resolve(__dirname, '..', 'node_modules','css-loader'), {
-                loader:  path.resolve(__dirname, '..', 'node_modules','less-loader'), 
-                options:{
+            use: [MiniCssExtractPlugin.loader, path.resolve(__dirname, '..', 'node_modules', 'css-loader'), {
+                loader: path.resolve(__dirname, '..', 'node_modules', 'less-loader'),
+                options: {
                     javascriptEnabled: true
                 }
-              }]
+            }]
 
         }, {
             test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif|mp4|webm)(\?\S*)?$/,
             use: {
-                loader:  path.resolve(__dirname, '..', 'node_modules','file-loader'),
+                loader: path.resolve(__dirname, '..', 'node_modules', 'file-loader'),
                 options: {
                     name: '[name].[ext]',
                     limit: 8192
@@ -143,7 +143,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin(env.stringified),
-        //大小写匹配
+        //Case matching
         new CaseSensitivePathsPlugin(),
         new MiniCssExtractPlugin({ filename: appName + '.min.css' })
     ],

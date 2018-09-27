@@ -5256,7 +5256,7 @@ var _dec, _class;
 
 
 
-var name = _package_json__WEBPACK_IMPORTED_MODULE_1__.name; //注册组件
+var name = _package_json__WEBPACK_IMPORTED_MODULE_1__.name; //Registration component
 
 mk_meta_engine__WEBPACK_IMPORTED_MODULE_2__["componentFactory"].registerComponent('FixedDataTable', fixed_data_table_2__WEBPACK_IMPORTED_MODULE_4___default.a);
 var view = {

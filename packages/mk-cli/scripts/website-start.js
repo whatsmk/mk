@@ -60,7 +60,6 @@ function createDir(publicPath) {
         fs.mkdirSync(publicPath);
     }
     else {
-        //清空目录中文件
         fs.emptyDirSync(publicPath);
     }
 }

@@ -141,7 +141,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin(env.stringified),
-        //大小写匹配
+        //Case matching
         new CaseSensitivePathsPlugin(),
         new MiniCssExtractPlugin({ filename: appName + '.min.css' })
     ],

@@ -27,7 +27,7 @@ npm manifest:
   {
     "name": "@whatsmk/cli",
     "version": "0.0.5",
-    "description": "mk脚手架",
+    "description": "mk scaffolding",
     "license": "MIT",
     "repository": {
       "type": "git",

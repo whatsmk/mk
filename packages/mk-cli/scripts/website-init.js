@@ -29,7 +29,7 @@ module.exports = function (
 
     } else {
         console.error(
-            `找不到应用模板: ${chalk.green(templatePath)}`
+            `Application template not found: ${chalk.green(templatePath)}`
         );
         return;
     }
@@ -40,7 +40,6 @@ module.exports = function (
         [],
         err => {
             if (err) {
-                //已经存在替换内容
                 if (err.code === 'EEXIST') {
                     const data = fs.readFileSync(path.join(websitePath, 'apps', 'welcome', 'gitignore'));
                     fs.appendFileSync(path.join(websitePath, 'apps', 'welcome', '.gitignore'), data);
@@ -58,7 +57,6 @@ module.exports = function (
         [],
         err => {
             if (err) {
-                //已经存在替换内容
                 if (err.code === 'EEXIST') {
                     const data = fs.readFileSync(path.join(websitePath, 'apps', 'welcome', 'npmignore'));
                     fs.appendFileSync(path.join(websitePath, 'apps', 'welcome', '.npmignore'), data);
@@ -80,21 +78,21 @@ module.exports = function (
     const displayedCommand = useYarn ? 'yarn' : 'npm';
 
     console.log();
-    console.log(`创建应用 ${websiteName} 成功，目录：${websitePath}`);
-    console.log('你可以在该目录下运行下面命令:');
+    console.log(`Create app ${websiteName} success，directory：${websitePath}`);
+    console.log('Enter the directory and Run command:');
     console.log();
     console.log(chalk.cyan(`  ${displayedCommand} start`));
-    console.log('    启动开发服务器.');
+    console.log('    Start the development server.');
     console.log();
     console.log(
         chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}pkg`)
     );
-    console.log('    打包网站.');
+    console.log('    Compile the application.');
     console.log();
-    console.log('建议从下面的命令开始:');
+    console.log('Start run command:');
     console.log();
     console.log(chalk.cyan('  cd'), websiteName);
     console.log(`  ${chalk.cyan(`${displayedCommand} start`)}`);
     console.log();
-    console.log('感谢您使用mk!');
+    console.log('Thank you for using mk!');
 };

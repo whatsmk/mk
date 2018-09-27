@@ -106157,7 +106157,7 @@ var _dec, _class;
 
 
 
-var index_name = package_0.name; //注册组件
+var index_name = package_0.name; //Registration component
 
 external_commonjs_MK_metaEngine_commonjs2_MK_metaEngine_amd_MK_metaEngine_root_MK_metaEngine_["componentFactory"].registerComponent('antd', component_namespaceObject);
 var state = {
