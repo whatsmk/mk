@@ -1,5 +1,5 @@
 import pkgJson from './package.json'
-import { actionMixin } from 'mk-meta-engine'
+import { actionMixin } from 'mk'
 import './style.less'
 
 const name = pkgJson.name

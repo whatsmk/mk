@@ -758,8 +758,8 @@
     "@xtuc/long" "4.2.1"
 
 "@whatsmk/sdk@*":
-  version "0.0.45"
-  resolved "https://registry.yarnpkg.com/@whatsmk/sdk/-/sdk-0.0.45.tgz#1a8d51d5609ea77bb629c4726fb82c89a8c39dfe"
+  version "0.0.46"
+  resolved "https://registry.yarnpkg.com/@whatsmk/sdk/-/sdk-0.0.46.tgz#14cce7bafcf2f099ffba66369342543f074801b8"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"

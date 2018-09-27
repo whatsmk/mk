@@ -61,31 +61,7 @@ module.exports = {
             amd: 'immutable'
         },
         "moment": "moment",
-        "mk-sdk": "MK",
-        "mk-app-loader": {
-            root: ["MK", "appLoader"],
-            commonjs: "MK.appLoader",
-            commonjs2: "MK.appLoader",
-            amd: "MK.appLoader"
-        },
-        "mk-utils": {
-            root: ["MK", "utils"],
-            commonjs2: "MK.utils",
-            amd: "MK.utils",
-            commonjs: "MK.utils",
-        },
-        "mk-component": {
-            root: ["MK", "component"],
-            commonjs2: "MK.component",
-            amd: "MK.component",
-            commonjs: "MK.component"
-        },
-        "mk-meta-engine": {
-            commonjs: ["MK", "metaEngine"],
-            commonjs2: "MK.metaEngine",
-            amd: "MK.metaEngine",
-            root: "MK.metaEngine"
-        }
+        "mk": "MK"
     },
     module: {
         rules: [{

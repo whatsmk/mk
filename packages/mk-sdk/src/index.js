@@ -16,14 +16,15 @@ appLoader.init({
     defaultReducer: metaEngine.defaultReducer
 })
 
-var Hoc
-const isProduction = process.env.isProduction,
+var Hoc,
+    isProduction = process.env.isProduction,
     createElement = React.createElement,
-    getComponent = metaEngine.componentFactory.getComponent,
-    registerComponent = metaEngine.componentFactory.registerComponent,
-    registerAction = metaEngine.actionFactory.registerAction,
-    registerTemplate = metaEngine.templateFactory.registerTemplate,
+    getComponent =  metaEngine.componentFactory.getComponent.bind(metaEngine.componentFactory),
+    registerComponent = metaEngine.componentFactory.registerComponent.bind(metaEngine.componentFactory),
+    registerAction = metaEngine.actionFactory.registerAction.bind(metaEngine.actionFactory),
+    registerTemplate = metaEngine.templateFactory.registerTemplate.bind(metaEngine.templateFactory),
     actionMixin = metaEngine.actionMixin
+
 
 //初始化MK环境
 function init(option) {

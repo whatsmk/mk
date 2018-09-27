@@ -6977,13 +6977,13 @@ _whatsmk_app_loader__WEBPACK_IMPORTED_MODULE_5___default.a.init({
   defaultAction: _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.defaultAction,
   defaultReducer: _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.defaultReducer
 });
-var Hoc;
-var isProduction = false,
+var Hoc,
+    isProduction = false,
     createElement = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement,
-    getComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.getComponent,
-    registerComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.registerComponent,
-    registerAction = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionFactory.registerAction,
-    registerTemplate = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.templateFactory.registerTemplate,
+    getComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.getComponent.bind(_whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory),
+    registerComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.registerComponent.bind(_whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory),
+    registerAction = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionFactory.registerAction.bind(_whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionFactory),
+    registerTemplate = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.templateFactory.registerTemplate.bind(_whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.templateFactory),
     actionMixin = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionMixin; //初始化MK环境
 
 function init(option) {
