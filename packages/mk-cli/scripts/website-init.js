@@ -8,6 +8,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const paths = require('../config/paths');
+const Alphabet = require('alphabetjs');
 
 module.exports = function (
     websitePath,
@@ -94,5 +95,7 @@ module.exports = function (
     console.log(chalk.cyan('  cd'), websiteName);
     console.log(`  ${chalk.cyan(`${displayedCommand} start`)}`);
     console.log();
-    console.log('Thank you for using mk!');
+    //console.log('Thank you for using mk!');
+    const str = Alphabet('MAKA', 'stereo')
+    console.log(str)
 };

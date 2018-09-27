@@ -1,6 +1,6 @@
 {
   "name": "@whatsmk/cli",
-  "version": "0.0.38",
+  "version": "0.0.42",
   "description": "MK scaffolding",
   "license": "MIT",
   "repository": {
@@ -27,6 +27,7 @@
     "@babel/preset-react": "*",
     "@babel/runtime": "*",
     "@whatsmk/sdk": "*",
+    "alphabetjs": "^0.1.4",
     "art-template": "*",
     "babel-loader": "*",
     "case-sensitive-paths-webpack-plugin": "*",

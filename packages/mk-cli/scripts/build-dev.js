@@ -22,14 +22,14 @@ if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
 
-console.log(chalk.green(`开始编译开发环境输出资源...`));
+console.log(chalk.green(`Start compiling the development environment...`));
 
 try {
   main()
 }
 catch (err) {
   console.log(chalk.red('Compile failed.\n'));
-  //输出编译异常
+  //Compile exception
   printBuildError(err);
   process.exit(1);
 }
@@ -39,7 +39,7 @@ async function main() {
   emptyDir()
   var ret = await build()
   if (ret.warnings) {
-    //存在警告
+    //Warning
     if (ret.warnings.length) {
       console.log(chalk.yellow('Compile warning.\n'));
       console.log(ret.warnings.join('\n\n'));

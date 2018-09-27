@@ -33,14 +33,14 @@ catch (reason) {
 }
 
 function createDir(root, name) {
-  console.log(`  ${chalk.bold('[1/4]')} Create a directory:${root}...`)
+  console.log(`  ${chalk.bold('[1/4]')} Create a directory (${root})`)
   fs.ensureDirSync(name);
   process.chdir(root);
 }
 
 
 function createPackageJson(root, name) {
-  console.log(`  ${chalk.bold('[2/4]')} Create a package.json file...`)
+  console.log(`  ${chalk.bold('[2/4]')} Create a package.json file`)
   const packageJson = {
     isMKApp: true,
     name: name,

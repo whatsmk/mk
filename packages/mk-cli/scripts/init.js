@@ -9,6 +9,7 @@ const path = require('path');
 const chalk = require('chalk');
 const utils = require('./utils');
 const paths = require('../config/paths');
+const Alphabet = require('alphabetjs');
 
 module.exports = function (
   appPath,
@@ -113,5 +114,7 @@ module.exports = function (
   console.log(chalk.cyan('  cd'), appName);
   console.log(`  ${chalk.cyan(`${displayedCommand} start`)}`);
   console.log();
-  console.log('Thank you for using mk!');
+  //console.log('Thank you for using mk!');
+  const str = Alphabet('MAKA', 'stereo')
+  console.log(str)
 };
