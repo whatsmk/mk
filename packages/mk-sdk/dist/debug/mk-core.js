@@ -6925,7 +6925,7 @@ if (!self.fetch) {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: default, appLoader, utils, metaEngine, init, config, load, getComponent, setHoc, createElement, render */
+/*! exports provided: default, appLoader, utils, metaEngine, init, config, load, getComponent, registerComponent, registerAction, registerTemplate, setHoc, createElement, render */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6934,6 +6934,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "load", function() { return load; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getComponent", function() { return getComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerComponent", function() { return registerComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerAction", function() { return registerAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerTemplate", function() { return registerTemplate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setHoc", function() { return setHoc; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
@@ -6974,9 +6977,12 @@ _whatsmk_app_loader__WEBPACK_IMPORTED_MODULE_5___default.a.init({
   defaultReducer: _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.defaultReducer
 });
 var Hoc;
-var createElement = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement;
-var getComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.getComponent;
-var isProduction = false; //初始化MK环境
+var isProduction = false,
+    createElement = react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement,
+    getComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.getComponent,
+    registerComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.registerComponent,
+    registerAction = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionFactory.registerAction,
+    registerTemplate = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.templateFactory.registerTemplate; //初始化MK环境
 
 function init(option) {
   _whatsmk_app_loader__WEBPACK_IMPORTED_MODULE_5___default.a.init(option);
@@ -7075,6 +7081,9 @@ function _render() {
   config: config,
   load: load,
   getComponent: getComponent,
+  registerComponent: registerComponent,
+  registerAction: registerAction,
+  registerTemplate: registerTemplate,
   setHoc: setHoc,
   createElement: createElement,
   render: render

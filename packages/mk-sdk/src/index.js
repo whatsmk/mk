@@ -5,7 +5,6 @@ import appLoader from '@whatsmk/app-loader'
 import utils from '@whatsmk/utils'
 import metaEngine from '@whatsmk/meta-engine'
 
-
 //默认配置fetch
 utils.fetch.config({
     mock: true
@@ -18,9 +17,12 @@ appLoader.init({
 })
 
 var Hoc
-const createElement = React.createElement
-const getComponent = metaEngine.componentFactory.getComponent
-var isProduction = process.env.isProduction
+const isProduction = process.env.isProduction,
+    createElement = React.createElement,
+    getComponent = metaEngine.componentFactory.getComponent,
+    registerComponent = metaEngine.componentFactory.registerComponent,
+    registerAction = metaEngine.actionFactory.registerAction,
+    registerTemplate = metaEngine.templateFactory.registerTemplate
 
 //初始化MK环境
 function init(option) {
@@ -48,26 +50,20 @@ async function render(appName, targetDomId) {
         await appLoader.loadApp(appName, isProduction)
 
     if (Hoc) {
-        domRender(
-            (
-                <Hoc>
-                    <Provider store={window.__mk_store__}>
-                        <appLoader.AppLoader name={appName} />
-                    </Provider>
-                </Hoc>
-            ),
-            document.getElementById(targetDomId)
-        )
-    }
-    else {
-        domRender(
-            (
+        domRender((
+            <Hoc>
                 <Provider store={window.__mk_store__}>
                     <appLoader.AppLoader name={appName} />
                 </Provider>
-            ),
-            document.getElementById(targetDomId)
-        )
+            </Hoc>
+        ), document.getElementById(targetDomId))
+    }
+    else {
+        domRender((
+            <Provider store={window.__mk_store__}>
+                <appLoader.AppLoader name={appName} />
+            </Provider>
+        ), document.getElementById(targetDomId))
     }
 }
 
@@ -80,6 +76,9 @@ export default {
     config,
     load,
     getComponent,
+    registerComponent,
+    registerAction,
+    registerTemplate,
     setHoc,
     createElement,
     render
@@ -93,6 +92,9 @@ export {
     config,
     load,
     getComponent,
+    registerComponent,
+    registerAction,
+    registerTemplate,
     setHoc,
     createElement,
     render
