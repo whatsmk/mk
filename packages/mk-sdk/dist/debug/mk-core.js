@@ -6925,7 +6925,7 @@ if (!self.fetch) {
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! exports provided: default, appLoader, utils, metaEngine, init, config, load, getComponent, registerComponent, registerAction, registerTemplate, setHoc, createElement, render */
+/*! exports provided: default, appLoader, utils, metaEngine, init, config, load, getComponent, registerComponent, registerAction, registerTemplate, actionMixin, setHoc, createElement, render */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6937,6 +6937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerComponent", function() { return registerComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerAction", function() { return registerAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerTemplate", function() { return registerTemplate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionMixin", function() { return actionMixin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setHoc", function() { return setHoc; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
@@ -6982,7 +6983,8 @@ var isProduction = false,
     getComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.getComponent,
     registerComponent = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.componentFactory.registerComponent,
     registerAction = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionFactory.registerAction,
-    registerTemplate = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.templateFactory.registerTemplate; //初始化MK环境
+    registerTemplate = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.templateFactory.registerTemplate,
+    actionMixin = _whatsmk_meta_engine__WEBPACK_IMPORTED_MODULE_7___default.a.actionMixin; //初始化MK环境
 
 function init(option) {
   _whatsmk_app_loader__WEBPACK_IMPORTED_MODULE_5___default.a.init(option);
@@ -7084,6 +7086,7 @@ function _render() {
   registerComponent: registerComponent,
   registerAction: registerAction,
   registerTemplate: registerTemplate,
+  actionMixin: actionMixin,
   setHoc: setHoc,
   createElement: createElement,
   render: render

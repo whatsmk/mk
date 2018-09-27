@@ -22,7 +22,8 @@ const isProduction = process.env.isProduction,
     getComponent = metaEngine.componentFactory.getComponent,
     registerComponent = metaEngine.componentFactory.registerComponent,
     registerAction = metaEngine.actionFactory.registerAction,
-    registerTemplate = metaEngine.templateFactory.registerTemplate
+    registerTemplate = metaEngine.templateFactory.registerTemplate,
+    actionMixin = metaEngine.actionMixin
 
 //初始化MK环境
 function init(option) {
@@ -67,7 +68,6 @@ async function render(appName, targetDomId) {
     }
 }
 
-
 export default {
     appLoader,
     utils,
@@ -79,6 +79,7 @@ export default {
     registerComponent,
     registerAction,
     registerTemplate,
+    actionMixin,
     setHoc,
     createElement,
     render
@@ -95,6 +96,7 @@ export {
     registerComponent,
     registerAction,
     registerTemplate,
+    actionMixin,
     setHoc,
     createElement,
     render
