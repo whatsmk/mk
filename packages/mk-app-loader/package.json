@@ -1,6 +1,6 @@
 {
   "name": "@whatsmk/app-loader",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "app loader",
   "main": "./lib/index",
   "scripts": {
