@@ -1,6 +1,6 @@
 {
   "name": "@whatsmk/sdk",
-  "version": "0.0.56",
+  "version": "0.0.57",
   "description": "sdk",
   "main": "lib/index.js",
   "scripts": {
