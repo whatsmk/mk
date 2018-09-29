@@ -14,20 +14,23 @@ const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const config = require('../config/webpack.config.pkg');
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
-const template = require('art-template');
 const spawn = require('cross-spawn');
+const utils = require('./utils');
+const packageJson = require(paths.appPackageJson);
+const isDev = process.argv[process.argv.length - 1] === 'true';
+const outputPath = isDev ? paths.appPackageDev : paths.appPackage;
 
-const appDirectory = fs.realpathSync(process.cwd());
+const createWebpackConfig = require('../config/webpack.config');
+const config = createWebpackConfig({ isProd: !isDev, outputPath: outputPath });
 
 if (!checkRequiredFiles([paths.appIndexJs])) {
     process.exit(1);
 }
-console.log(chalk.green(`Start packaging production environment...`));
+console.log(chalk.green(`Start packaging ...`));
 
 try {
     main()
@@ -41,26 +44,24 @@ catch (err) {
 
 
 async function main() {
-    emptyDir()
+    delSdkFiles()
     await build()
-    copyCoreLib(paths.appPath)
-    scanAppDep(paths.appPath)
-    copyLocalDep(paths.appPath)
-    copyRemoteDep(paths.appPath)
-    createHtmlFile(paths.appPackage, paths.appPath)
+    copyCoreLib()
+    copyDep()
+    createMKJsFile()
+    createHtmlFile()
 
-    console.log(chalk.green(`Packaged successfully,Output directory:${paths.appPackage}\n`));
+    console.log(chalk.green(`Packaged successfully,Output directory:${outputPath}\n`));
     return Promise.resolve()
 }
 
-function emptyDir() {
-    console.log(`  ${chalk.bold('[1/7]')} Empty directory:${paths.appPackage}`)
-    fs.emptyDirSync(paths.appPackage);
+function delSdkFiles() {
+    console.log(`  ${chalk.bold('[1/6]')} Clear mk-sdk files, directory:${outputPath}`)
+    utils.delSdkFiles(outputPath)
 }
 
-
 function build() {
-    console.log(`  ${chalk.bold('[2/7]')} Compile app...`)
+    console.log(`  ${chalk.bold('[2/6]')} Compile app...`)
     let compiler = webpack(config);
     return new Promise((resolve, reject) => {
         compiler.run((err, stats) => {
@@ -82,48 +83,47 @@ function build() {
 }
 
 function copyCoreLib() {
-    console.log(`  ${chalk.bold('[3/7]')} Copy sdk...`)
-    let libPath = path.resolve(__dirname, '..', 'node_modules', '@whatsmk', 'sdk', 'dist', 'release')
-    if (!fs.existsSync(paths.appPackage)) {
-        fs.mkdirSync(paths.appPackage);
+    console.log(`  ${chalk.bold('[3/6]')} Copy sdk...`)
+    let libPath = path.resolve(__dirname, '..', 'node_modules', '@whatsmk', 'sdk', 'dist', isDev ? 'debug' : 'release')
+    if (!fs.existsSync(outputPath)) {
+        fs.mkdirSync(outputPath);
     }
-    fs.copySync(libPath, paths.appPackage);
+    fs.copySync(libPath, outputPath);
 }
 
-function scanAppDep(appPath) {
-    console.log(`  ${chalk.bold('[4/7]')} Scan dependent app...`)
+function copyDep() {
+    console.log(`  ${chalk.bold('[4/6]')} Copy dependency app...`)
     spawn.sync('node',
-        [path.resolve(__dirname, '..', 'scripts', 'scan.js')],
+        [path.resolve(__dirname, '..', 'scripts', 'copy-dep.js'), isDev, outputPath],
         { stdio: 'inherit' }
     );
 }
 
-function copyLocalDep(appPath) {
-    console.log(`  ${chalk.bold('[5/7]')} Copy local dependent app...`)
-    spawn.sync('node',
-        [path.resolve(__dirname, '..', 'scripts', 'copy-local-dep.js'), '', paths.appPackage],
-        { stdio: 'inherit' }
-    );
-}
+function createMKJsFile() {
+    console.log(`  ${chalk.bold('[5/6]')} Create an mk file...`)
+    const tplPath = path.resolve(__dirname, '..', 'template', isDev ? 'mk.js' : 'mk.min.js');
+    let content = fs.readFileSync(tplPath, 'utf-8');
+    if (packageJson.requirejs && packageJson.requirejs.paths) {
+      var strPaths = JSON.stringify(packageJson.requirejs.paths)
+      content = content.replace('<ext>', strPaths.substr(1, strPaths.length - 2))
+    }
+    else {
+      content = content.replace('<ext>', '')
+    }
+    fs.writeFileSync(path.resolve(outputPath, isDev ? 'mk.js' : 'mk.min.js'), content);
+  }
+  
 
-function copyRemoteDep(appPath) {
-    console.log(`  ${chalk.bold('[6/7]')} Copy remote dependency app...`)
-    spawn.sync('node',
-        [path.resolve(__dirname, '..', 'scripts', 'copy-remote-dep.js'), '', paths.appPackage],
-        { stdio: 'inherit' }
-    );
-}
+function createHtmlFile() {
+    console.log(`  ${chalk.bold('[6/6]')} Create an html file...`)
 
-function copyHtmlFile(publicPath, appPath) {
-    console.log(`  ${chalk.bold('[7/7]')} Copy html file...`)
-    fs.copyFileSync(path.resolve(appPath, 'index.html'), path.join(publicPath, 'index.html'));
-}
-function createHtmlFile(publicPath, appPath) {
-    console.log(`  ${chalk.bold('[7/7]')} Create an html file...`)
-
-    const htmlTplPath = path.resolve(appPath, 'index.html');
+    const htmlTplPath = path.resolve(paths.appPath, 'index.html');
     let html = fs.readFileSync(htmlTplPath, 'utf-8');
-    html = html.replace('require.js', 'require.min.js').replace('mk.js', 'mk.min.js')
-    fs.writeFileSync(path.resolve(publicPath, 'index.html'), html);
+    if (isDev) {
+        html = html.replace('require.min.js', 'require.js').replace('mk.min.js', 'mk.js')
+    }
+    fs.writeFileSync(path.resolve(outputPath, 'index.html'), html);
 }
+
+
 

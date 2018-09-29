@@ -2,11 +2,7 @@ import Immutable, { Map, List, fromJS } from 'immutable'
 import utils, { path } from '@whatsmk/utils'
 import templateFactory from './templateFactory'
 
-
-const { existsParamsInPath, parsePath } = path
-
-
-
+const { parsePath } = path
 const cache = { meta: Map() }
 
 window['__getCache'] = () => cache

@@ -13,7 +13,6 @@ if (isProduction)
         'https://unpkg.com/prop-types/prop-types.min.js',
         'https://unpkg.com/redux/dist/redux.min.js',
         'https://unpkg.com/react-redux/dist/react-redux.min.js',
-        'https://unpkg.com/lodash/lodash.min.js',
         'https://unpkg.com/immutable/dist/immutable.min.js',
         'https://unpkg.com/require-css/css.min.js',
     ]
@@ -24,7 +23,6 @@ else
         'https://unpkg.com/prop-types/prop-types.js',
         'https://unpkg.com/redux/dist/redux.js',
         'https://unpkg.com/react-redux/dist/react-redux.js',
-        'https://unpkg.com/lodash/lodash.js',
         'https://unpkg.com/immutable/dist/immutable.js',
         'https://unpkg.com/require-css/css.js',
     ]

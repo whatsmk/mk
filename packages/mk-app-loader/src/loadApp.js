@@ -1,5 +1,7 @@
 import appFactory from './appFactory'
 
+const isProduction = process.env.isProduction
+
 const appConfig = (apps, options) => {
     Object.keys(options).forEach(key => {
         const reg = new RegExp(`^${key == '*' ? '.*' : key}$`)
@@ -19,7 +21,7 @@ function fixName(name){
 }
 
 
-export default function loadApp(app, isProduction) {
+export default function loadApp(app) {
     var urls = [],
         options ={}
     

@@ -1,4 +1,4 @@
-import * as history from 'history'
+import createHashHistory from 'history/createHashHistory'
 
 var hashHistory
 const listerners = {},
@@ -6,7 +6,7 @@ const listerners = {},
 
 function setHistoryInstance() {
     if (!hashHistory)
-        hashHistory = history.createHashHistory()
+        hashHistory = createHashHistory()
 }
 
 function config(options) {

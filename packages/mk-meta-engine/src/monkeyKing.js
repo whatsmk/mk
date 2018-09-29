@@ -1,7 +1,6 @@
 import React from 'react'
 import componentFactory from './componentFactory'
-import utils from '@whatsmk/utils'
-import _ from 'lodash'
+import memoize from 'lodash/memoize'
 
 function parseMetaProps(meta, props, data) {
     const ret = {}
@@ -44,7 +43,7 @@ function parseMetaProps(meta, props, data) {
     return ret
 }
 
-const toFunction = _.memoize((v) => {
+const toFunction = memoize((v) => {
     return new Function(v)
 })
 

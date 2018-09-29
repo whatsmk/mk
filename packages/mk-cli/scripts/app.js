@@ -5,7 +5,6 @@ const fs = require('fs-extra');
 const path = require('path');
 const spawn = require('react-dev-utils/crossSpawn');
 
-
 let projectName = process.argv[2];
 
 if (typeof projectName === 'undefined') {
@@ -24,7 +23,7 @@ const appName = path.basename(root);
 try {
   createDir(root, appName)
   createPackageJson(root, appName)
-  createMKJson(root, appName)
+  //createMKJson(root, appName)
   //install()
   init(appName, root)
 }
@@ -33,14 +32,14 @@ catch (reason) {
 }
 
 function createDir(root, name) {
-  console.log(`  ${chalk.bold('[1/4]')} Create a directory (${root})`)
+  console.log(`  ${chalk.bold('[1/3]')} Create a directory (${root})`)
   fs.ensureDirSync(name);
   process.chdir(root);
 }
 
 
 function createPackageJson(root, name) {
-  console.log(`  ${chalk.bold('[2/4]')} Create a package.json file`)
+  console.log(`  ${chalk.bold('[2/3]')} Create a package.json file`)
   const packageJson = {
     isMKApp: true,
     name: name,
@@ -58,11 +57,17 @@ function createPackageJson(root, name) {
     homepage: `https://github.com/whatsmk/${name}#readme`,
     scripts: {
       'start': 'mk start',
+      'dev': 'mk start --dev',
       'build': 'mk build',
       'pkg': 'mk pkg'
     },
     dependencies: {
-    }
+    },
+    server: {
+      "proxy": null,
+      "port": 8000
+    },
+    subAppDir: './apps'
   };
 
   fs.writeFileSync(
@@ -71,31 +76,8 @@ function createPackageJson(root, name) {
   );
 }
 
-function createMKJson(root, name) {
-  console.log(`  ${chalk.bold('[3/4]')} Create a mk.json file...`)
-  const mkJson = {
-    server: {
-      "proxy": null,
-      "port": 8000
-    },
-    dependencies: {}
-  };
-
-  fs.writeFileSync(
-    path.join(root, 'mk.json'),
-    JSON.stringify(mkJson, null, 2)
-  );
-}
-
-/*
-function install() {
-  console.log(`  ${chalk.bold('[4/5]')} Installation dependence...`)
-  spawn.sync('node', [require.resolve('./install.js')], { stdio: 'inherit' });
-}
-*/
-
 function init(name, root) {
-  console.log(`  ${chalk.bold('[4/4]')} Initialize the application...`)
+  console.log(`  ${chalk.bold('[3/3]')} Initialize the application...`)
   const paths = require('../config/paths');
   const initScriptPath = path.resolve(
     __dirname,

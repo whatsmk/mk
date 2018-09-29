@@ -2,6 +2,8 @@ const execSync = require('child_process').execSync;
 const dns = require('dns');
 const chalk = require('chalk');
 const spawn = require('react-dev-utils/crossSpawn');
+const fs = require('fs-extra');
+const path = require('path');
 
 async function yarn(args, root) {
     let command;
@@ -56,10 +58,40 @@ function fixName(name) {
     return name.replace('@', '').replace('whatsmk', 'mk').replace('/', '-')
 }
 
+function delSdkFiles(dir){
+    var fileNames = [
+        'css.js', 
+        'css.min.js',
+        'immutable.js',
+        'immutable.min.js', 
+        'mk-core.js',
+        'mk-core.min.js',
+        'mk.js',
+        'mk.min.js',
+        'prop-types.js',
+        'prop-types.min.js',
+        'react-dom.development.js',
+        'react-dom.production.min.js',
+        'react-redux.js',
+        'react-redux.min.js',
+        'react.development.js',
+        'react.production.min.js',
+        'redux.js',
+        'redux.min.js',
+        'require.js',
+        'require.min.js'
+      ]
 
+    fileNames.forEach(f=>{
+        if( fs.existsSync(path.join(dir, f)) ){
+            fs.unlinkSync(path.join(dir, f))
+        }
+    })
+}
 
 module.exports = {
-    yarn: yarn,
-    fixName
+    yarn,
+    fixName,
+    delSdkFiles
 }
 

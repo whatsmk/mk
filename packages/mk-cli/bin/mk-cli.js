@@ -23,15 +23,15 @@ if (major < 4) {
 var which = require('which'),
     flag = false
 
-try{
+try {
     const resolved = which.sync('yarn')
-    if( resolved ){
+    if (resolved) {
         flag = true
     }
-}catch(err){
+} catch (err) {
     console.log(err)
 }
-if( !flag ){
+if (!flag) {
     console.log(chalk.yellowBright('mk依赖yarn，您没有安装 \n'))
     console.log(chalk.greenBright('请先安装yarn \n'))
     console.log(chalk.cyan('npm i -g yarn'))
@@ -46,77 +46,50 @@ program
 
 program
     .command('app <appName>')
+    .description('创建app')
     .action(function (...args) {
         let s = run('app', args);
         process.exit(s);
     })
 
 program
-    .command('website <website>')
-    .action(function (...args) {
-        let s = run('website', args)
-        process.exit(s);
-    })
-
-program
     .command('build')
+    .description('构建app')
+    .option('-d, --dev', 'development')
     .action(function (...args) {
         let s = run('build', args)
-        s = run('build-dev', args)
         process.exit(s);
     })
 
 program
     .command('pkg')
+    .description('打包app')
+    .option('-d, --dev', 'development')
     .action(function (...args) {
         let s = run('pkg', args);
-        s = run('pkg-dev', args);
         process.exit(s);
     })
 
 program
-    .command('scan')
-    .action(function (...args) {
-        let s = run('scan', args);
-        process.exit(s);
-    })
-program
-    .command('copy-local-dep')
-    .action(function (...args) {
-        let s = run('copy-local-dep', args);
-        process.exit(s);
-    })
-program
     .command('start')
+    .description('start app')
+    .option('-d, --dev', 'development')
     .action(function (...args) {
         let s = run('start', args);
         process.exit(s);
     })
 
 program
-    .command('website-start')
-    .action(function (...args) {
-        let s = run('website-start', args);
-        process.exit(s);
-    })
-
-program
-    .command('website-pkg')
-    .action(function (...args) {
-        let s = run('website-pkg', args);
-        s = run('website-pkg-dev', args);
-        process.exit(s);
-    })
-
-program
     .command('install')
+    .description('安装依赖')
     .action(function (...args) {
         let s = run('install', args);
         process.exit(s);
     })
-    
+
 program
     .command('upgrade')
+    .description('更新依赖')
     .action(function (...args) {
         let s = run('upgrade', args);
         process.exit(s);
@@ -124,20 +97,15 @@ program
 
 program
     .command('add')
+    .description('增加依赖')
     .action(function (...args) {
         let s = run('add', args);
-        process.exit(s);
-    })
-    
-program
-    .command('clone')
-    .action(function (...args) {
-        let s = run('clone', args);
         process.exit(s);
     })
 
 program
     .command('remove')
+    .description('删除依赖')
     .action(function (...args) {
         let s = run('remove', args);
         process.exit(s);
@@ -145,19 +113,19 @@ program
 
 program
     .command('publish')
-    .action(function (...args){
+    .description('发布app')
+    .action(function (...args) {
         let s = run('publish', args);
         process.exit(s);
     })
 
-
 program
     .command('adduser')
-    .action(function (...args){
+    .description('增加用户')
+    .action(function (...args) {
         let s = run('adduser', args);
         process.exit(s);
     })
-
 
 program
     .command('*')
@@ -168,13 +136,19 @@ program
 program.parse(process.argv)
 
 function run(script, args) {
-   
-    if(typeof args[0] !== 'string')
+    var isDev = false
+
+    if (typeof args[args.length - 1] == 'object' && args[args.length - 1].dev) {
+        isDev = true
+    }
+
+    if (typeof args[0] !== 'string')
         args = []
 
-    if(typeof args[args.length-1] != 'string')
+    if (typeof args[args.length - 1] != 'string')
         args.pop()
 
+    args.push(isDev)
     args.splice(0, 0, require.resolve('../scripts/' + script))
     const spawn = require('react-dev-utils/crossSpawn');
     const result = spawn.sync(
@@ -191,5 +165,5 @@ function run(script, args) {
         process.exit(1);
     }
     return result.status;
-    
+
 }

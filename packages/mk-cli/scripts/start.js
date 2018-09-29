@@ -7,7 +7,6 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
-
 require('../config/env');
 
 const path = require('path');
@@ -17,14 +16,19 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
-const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const utils = require('./utils');
-const config = require('../config/webpack.config.start');
+
 const createDevServerConfig = require('../config/webpackDevServer.config');
-const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
-const template = require('art-template');
 const spawn = require('react-dev-utils/crossSpawn');
+
+const packageJson = require(paths.appPackageJson)
+
+const isDev = process.argv[process.argv.length - 1] === 'true'
+const outputPath = paths.appPublic
+
+const createWebpackConfig = require('../config/webpack.config');
+const config = createWebpackConfig({ isProd: !isDev, outputPath: outputPath });
 
 const {
   choosePort,
@@ -49,65 +53,66 @@ catch (err) {
 
 
 async function main() {
-
-  createDir(paths.appPublic)
-  copyCoreLib(paths.appPublic, paths.appPath)
-  scanAppDep(paths.appPath)
-
-  copyLocalDep(paths.appPath)
-  copyRemoteDep(paths.appPath)
-  copyHtmlFile(paths.appPublic, paths.appPath)
-  var ret = getServerOption(paths.appPath)
+  createDir()
+  copyCoreLib()
+  copyDep()
+  createMKJsFile()
+  createHtmlFile()
+  var ret = getServerOption()
   var port = await choosePort(ret.host, ret.port)
   startServer({ ...ret, port })
 
 }
 
 
-function createDir(publicPath) {
-  if (!fs.existsSync(publicPath)) {
-    fs.mkdirSync(publicPath);
+function createDir() {
+  if (!fs.existsSync(outputPath)) {
+    fs.mkdirSync(outputPath);
   }
   else {
-    fs.emptyDirSync(publicPath);
+    utils.delSdkFiles(outputPath)
   }
 }
 
-function copyCoreLib(publicPath, appPath) {
-  let coreLibPath = path.resolve(__dirname, '..', 'node_modules', '@whatsmk', 'sdk', 'dist', 'debug')
-  fs.copySync(coreLibPath, publicPath);
+function copyCoreLib() {
+  let coreLibPath = path.resolve(__dirname, '..', 'node_modules', '@whatsmk', 'sdk', 'dist', isDev ? 'debug' : 'release')
+  fs.copySync(coreLibPath, outputPath);
 }
 
 
-function scanAppDep(appPath) {
+function copyDep() {
   spawn.sync('node',
-    [path.resolve(__dirname, '..', 'scripts', 'scan.js')],
-    { stdio: 'inherit' }
+      [path.resolve(__dirname, '..', 'scripts', 'copy-dep.js'), isDev, outputPath],
+      { stdio: 'inherit' }
   );
 }
 
-function copyLocalDep(appPath) {
-  spawn.sync('node',
-    [path.resolve(__dirname, '..', 'scripts', 'copy-local-dep.js')],
-    { stdio: 'inherit' }
-  );
+function createMKJsFile() {
+  const tplPath = path.resolve(__dirname, '..', 'template', isDev ? 'mk.js' : 'mk.min.js');
+  let content = fs.readFileSync(tplPath, 'utf-8');
+  if (packageJson.requirejs && packageJson.requirejs.paths) {
+    var strPaths = JSON.stringify(packageJson.requirejs.paths)
+    content = content.replace('<ext>', strPaths.substr(1, strPaths.length - 2))
+  }
+  else {
+    content = content.replace('<ext>', '')
+  }
+  fs.writeFileSync(path.resolve(outputPath, isDev ? 'mk.js' : 'mk.min.js'), content);
 }
 
-function copyRemoteDep(appPath) {
-  spawn.sync('node',
-    [path.resolve(__dirname, '..', 'scripts', 'copy-remote-dep.js')],
-    { stdio: 'inherit' }
-  );
+function createHtmlFile() {
+  const htmlTplPath = path.resolve(paths.appPath, 'index.html');
+  let html = fs.readFileSync(htmlTplPath, 'utf-8');
+  if (isDev) {
+    html = html.replace('require.min.js', 'require.js').replace('mk.min.js', 'mk.js')
+  }
+  fs.writeFileSync(path.resolve(outputPath, 'index.html'), html);
 }
 
-function copyHtmlFile(publicPath, appPath) {
-  fs.copyFileSync(path.resolve(appPath, 'index.html'), path.join(publicPath, 'index.html'));
-}
 
+function getServerOption() {
 
-function getServerOption(appPath) {
-  const mkJson = JSON.parse(fs.readFileSync(path.join(appPath, 'mk.json'), 'utf-8'))
-  const serverOption = mkJson.server
+  const serverOption = packageJson.server
   const DEFAULT_PORT = parseInt(serverOption.port, 10) || 8000
   const HOST = serverOption.host || '0.0.0.0'
   return {
@@ -130,7 +135,6 @@ function startServer(option) {
   const protocol = serverOption.https === 'true' ? 'https' : 'http';
   const appName = utils.fixName(require(paths.appPackageJson).name);
   const urls = prepareUrls(protocol, host, port);
-  config.entry = paths.appIndexJs
 
   const compiler = createCompiler(webpack, config, appName, urls, true);
   // Load agent configuration

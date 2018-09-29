@@ -29,15 +29,7 @@ class appFactory {
 
     getApp = (name) => {
         name = name.replace(/(\.js)|(\.min\.js)/, '')
-        var app = this.apps[name]
-
-        if (app)
-            return app
-
-        if (!app) {
-            throw `unregistered this app. name: ${name}`
-        }
-        return app
+        return this.apps[name]
     }
 
     getApps = () => {

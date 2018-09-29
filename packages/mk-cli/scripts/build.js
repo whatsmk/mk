@@ -13,19 +13,23 @@ require('../config/env');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const config = require('../config/webpack.config.prod');
+
 const paths = require('../config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
+const isDev = process.argv[process.argv.length - 1] === 'true'
+const outputPath = isDev ? paths.appDevBuild : paths.appProdBuild
 
+const createWebpackConfig = require('../config/webpack.config');
+const config = createWebpackConfig({ isProd: !isDev, outputPath: outputPath });
 
 //file does not exist
 if (!checkRequiredFiles([paths.appIndexJs])) {
   process.exit(1);
 }
 
-console.log(chalk.green(`Start compiling production environment output resources...`));
+console.log(chalk.green(`Start compiling ...`));
 
 try {
   main()
@@ -47,15 +51,15 @@ async function main() {
       console.log(chalk.yellow('Compile warning.\n'));
       console.log(ret.warnings.join('\n\n'));
     } else {
-      console.log(chalk.green(`Compile successfully, output directory:${paths.appProdBuild}`));
+      console.log(chalk.green(`Compile successfully, output directory:${outputPath}`));
     }
   }
 }
 
 function emptyDir() {
-  console.log(`  ${chalk.bold('[1/2]')} empty directory:${paths.appProdBuild}`)
+  console.log(`  ${chalk.bold('[1/2]')} empty directory:${outputPath}`)
   //empty files in the directory
-  fs.emptyDirSync(paths.appProdBuild);
+  fs.emptyDirSync(outputPath);
 }
 
 function build(previousFileSizes) {

@@ -16,6 +16,8 @@ appLoader.init({
     defaultReducer: metaEngine.defaultReducer
 })
 
+metaEngine.componentFactory.registerComponent("AppLoader", appLoader.AppLoader)
+
 var Hoc,
     isProduction = process.env.isProduction,
     createElement = React.createElement,
@@ -29,7 +31,6 @@ var Hoc,
 //初始化MK环境
 function init(option) {
     appLoader.init(option)
-    metaEngine.componentFactory.registerComponent("AppLoader", appLoader.AppLoader)
 }
 
 //配置元数据引擎

@@ -15,7 +15,6 @@ module.exports = {
             })
         ] : []
     },
-    devtool: env === 'production' ? undefined : 'source-map',
     plugins: [
         new webpack.DefinePlugin({
             "process.env": {
@@ -46,29 +45,6 @@ module.exports = {
             commonjs: 'react-dom',
             amd: 'react-dom'
         },
-        "moment": "moment",
-        "lodash": {
-            root: '_',
-            commonjs2: 'lodash',
-            commonjs: 'lodash',
-            amd: 'lodash'
-        },
-        "lodash.keys": 'lodash.keys',
-        "lodash.merge": 'lodash.merge',
-        "lodash.get": 'lodash.get',
-        'lodash.curry': 'lodash.curry',
-        "lodash.isequal": 'lodash.isequal',
-        "lodash.flow": 'lodash.flow',
-        "lodash.throttle": 'lodash.throttle',
-        "lodash.debounce": 'lodash.debounce',
-        "lodash.isarray": 'lodash.isarray',
-        "lodash.memoize": 'lodash.memoize',
-        "lodash/get": 'lodash.get',
-        "lodash/set": 'lodash.set',
-        "lodash/has": 'lodash.has',
-        "lodash/isArray": 'lodash.isArray',
-        "lodash/isSymbol": 'lodash.isSymbol',
-        "lodash/eq": 'lodash.eq',
         "redux": {
             root: 'Redux',
             commonjs2: 'redux',
