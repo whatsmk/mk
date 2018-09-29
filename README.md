@@ -197,6 +197,27 @@ const view = {
 }
 ```
 
+## 打包
+
+```
+mk build 
+mk build --dev
+mk pkg
+mk pkg --dev
+
+```
+
+## 发布
+
+```
+mk publish
+```
+
+## 引用
+```
+mk add <appName>
+```
+
 ## Hub
 
 
